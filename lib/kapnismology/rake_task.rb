@@ -1,6 +1,4 @@
 module Kapnismology
-  ## Usable as a rake tasks, it just circles through all the results printing them.
-  # If any result did not pass then the command should fail
   class RakeTask
     def output
       evaluations = SmokeTest.result

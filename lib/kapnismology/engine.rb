@@ -4,12 +4,18 @@ module Kapnismology
       app.config.eager_load_paths += Dir["#{app.config.root}/lib/**/*"]
     end
 
-   # config.eager_load_paths += Dir["#{app.config.root}/lib/**/*"]
     isolate_namespace Kapnismology
-    Rails.application.routes.draw do
-      mount Kapnismology::Engine, at: "/smoke_test"
-    end
+  end
 
+  class Routes
+    def self.insert!(path)
+      if defined?(Kapnismology) == false
+        raise 'require kapnismology before trying to insert routes'
+      end
+      Rails.application.routes.draw do
+        mount Kapnismology::Engine, at: path
+      end
+    end
   end
 
 end
