@@ -12,5 +12,6 @@ module Kapnismology
       else
         :service_unavailable
       end
+    end
   end
 end
