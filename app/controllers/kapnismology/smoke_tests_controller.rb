@@ -1,8 +1,16 @@
 module Kapnismology
   class SmokeTestsController < ApplicationController
     def index
-      result   = SmokeTest.result
-      render text: result.to_json
+      evaluations = SmokeTest.evaluations
+      render text: evaluations.to_json, status: status(evaluations)
     end
+
+    private
+    def status(evaluations)
+      if evaluations.passed?
+        :ok
+      else
+        :service_unavailable
+      end
   end
 end

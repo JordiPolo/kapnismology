@@ -1,5 +1,7 @@
 require 'rspec'
-require 'kapnismology/smoke_test'
+require 'byebug'
+require 'kapnismology'
+require_relative 'support/fake_smoketest'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -20,8 +22,6 @@ RSpec.configure do |config|
   if config.files_to_run.one?
     config.default_formatter = 'doc'
   end
-
-  config.profile_examples = 10
 
   config.order = :random
 

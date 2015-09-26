@@ -7,10 +7,8 @@ module Kapnismology
   # * passed : Boolean: true -> test passed, false -> test failed
   # * message: String: extra message set by the test if it wants to provide more information
   class Result
-    include Contracts
     attr_reader :data, :passed, :message
 
-   # Contract Any, Bool, String => nil
     def initialize(data, passed, message)
       @data, @passed, @message = data, passed, message
     end

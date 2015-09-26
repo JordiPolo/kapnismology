@@ -25,10 +25,8 @@ module Kapnismology
         @smoke_tests ||= []
       end
 
-      def result
-        smoke_tests.inject([]) do |memo, smoke_test|
-          memo.push(Evaluation.new(smoke_test.name, smoke_test.new.result))
-        end
+      def evaluations
+        EvaluationCollection.new(smoke_tests)
       end
     end
 

@@ -1,4 +1,5 @@
 module Kapnismology
+begin
   class Engine < ::Rails::Engine
     initializer "kapnismology.add_autoload_paths", before: :set_autoload_paths do |app|
       app.config.eager_load_paths += Dir["#{app.config.root}/lib/**/*"]
@@ -17,5 +18,7 @@ module Kapnismology
       end
     end
   end
-
+rescue NameError => e
+  puts "Incompatible Rails version #{e}"
+end
 end

@@ -2,8 +2,8 @@
 unless defined?(Kapnismology::Engine)
   require "kapnismology/engine"
 end
-require 'contracts'
 require 'kapnismology/result'
 require 'kapnismology/evaluation'
+require 'kapnismology/evaluation_collection'
 require 'kapnismology/rake_task'
 require 'kapnismology/smoke_test'
