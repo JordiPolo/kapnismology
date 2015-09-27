@@ -1,7 +1,14 @@
+require 'combustion'
 require 'rspec'
 require 'byebug'
+
 require 'kapnismology'
-require_relative 'support/fake_smoketest'
+require File.expand_path("../support/fake_smoketest", __FILE__)
+require 'capybara/rspec'
+
+Combustion.initialize! :all
+
+require 'capybara/rails'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

@@ -7,7 +7,7 @@ Kapnismology 'the study of smoke', is a gem which contains an engine to easily c
 Kapnismology only supports Rails.
 In the Gemfile write:
 ```
-gem 'kapnismology', git: 'git@github.com:mdsol/kapnismology.git'
+gem 'kapnismology', '~> 0.1'
 ```
 
 In your config/routes write:
