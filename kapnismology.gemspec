@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", ">= 3.2.13", "< 5.0"
   s.add_development_dependency 'rspec', '~> 3.2'
-  s.add_development_dependency 'byebug', '~> 6.0'
+  s.add_development_dependency 'byebug', '~> 8.0'
   s.add_development_dependency 'mutant', '~> 0.8'
   s.add_development_dependency 'mutant-rspec', '~> 0.8'
   s.add_development_dependency 'appraisal', '~> 2.1'

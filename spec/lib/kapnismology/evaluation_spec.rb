@@ -2,26 +2,25 @@ require 'spec_helper'
 
 module Kapnismology
   RSpec.describe Evaluation do
-    let(:data) {[:berserk]}
-    let(:passed) {true}
-    let(:message) {'黄金時代'}
-    let(:result) {Result.new(data, passed, message)}
-    let(:name) {'guts'}
-    let(:evaluation) {Evaluation.new(name, result)}
+    class TestSmokeTest
+      def result
+        Result.new(true, [:berserk], '黄金時代') #defined down there in the let
+      end
+    end
+    let(:evaluation) {Evaluation.new(TestSmokeTest)}
 
     it 'creates a json representation' do
-      expected = '{"guts":{"result":["berserk"],"passed":true,"message":"黄金時代"}}'
+      expected = '{"TestSmokeTest":{"passed":true,"data":["berserk"],"message":"黄金時代"}}'
       expect(evaluation.to_json).to eq(expected)
     end
 
-    it 'has access to the test_name' do
-      expect(evaluation.test_name).to eq(name)
+    it 'knows if the test passed' do
+      expect(evaluation.passed?).to eq(true)
     end
 
-    it 'hast access to the result information' do
-      expect(evaluation.data).to eq(data)
-      expect(evaluation.passed).to eq(passed)
-      expect(evaluation.message).to eq(message)
+    it 'creates a string representation' do
+      expected = "The smoke test TestSmokeTest passed\n 黄金時代"
+      expect(evaluation.to_s).to eq(expected)
     end
 
   end

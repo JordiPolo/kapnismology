@@ -5,7 +5,7 @@ module Kapnismology
     let(:data) {[:berserk]}
     let(:passed) {true}
     let(:message) {'黄金時代'}
-    let(:result) {Result.new(data, passed, message)}
+    let(:result) {Result.new(passed, data, message)}
     let(:name) {'guts'}
     before do
       FakeSmokeTest.name = name
@@ -13,7 +13,7 @@ module Kapnismology
     end
     scenario "User creates a new widget" do
       visit '/smoke_test'
-      expected = '[{"test_name":"guts","result":{"result":["berserk"],"passed":true,"message":"黄金時代"}}]'
+      expected = '[{"guts":{"passed":true,"data":["berserk"],"message":"黄金時代"}}]'
       expect(page).to have_text(expected)
     end
 

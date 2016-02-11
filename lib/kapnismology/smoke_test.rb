@@ -11,10 +11,6 @@ module Kapnismology
       raise 'this method has to be implemented in inherited classes'
     end
 
-    def self.name
-      raise 'this method has to be implemented in inherited classes'
-    end
-
     class << self
 
       def inherited(klass)

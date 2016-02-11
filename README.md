@@ -7,7 +7,7 @@ Kapnismology 'the study of smoke', is a gem which contains an engine to easily c
 Kapnismology only supports Rails.
 In the Gemfile write:
 ```
-gem 'kapnismology', '~> 0.1'
+gem 'kapnismology', '~> 0.2'
 ```
 
 In your config/routes write:
@@ -27,29 +27,26 @@ Create a class like this:
 ```
 class MySmokeTest < Kapnismology::SmokeTest
 
-  def self.name
-    'my_test'
-  end
-
   def result
-    "BOOO"
+    Kapnismology::Result.new(true, {connection: 'good'}, "Connected!")
   end
 end
 ```
 
 The class must:
 - Inherit from `Kapnismology::SmokeTest`
-- Have a method `self.name` returning a string
 - Have an instance method `result` returning a Kapnismology::Result object
 
 Any class created this way will be called and its result will be added to a resulting hash.
 In this case the result of this class would be added to the result as:
 ```
-{'my_test' => 'BOOO'}
+{'MySmokeTest': { passed: true, data: { connection: 'good' }, message: 'Connected!' }}
 ```
+
+If you want to change the name of the test, define self.name in your
+smoke test class.
 
 ## TODO
 
-- rspecs
 - Automount routes
 - Hypermedia output

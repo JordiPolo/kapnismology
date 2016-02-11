@@ -4,8 +4,8 @@ module Kapnismology
   class EvaluationCollection
     include Enumerable
 
-    def initialize(smoke_tests)
-      @smoke_tests = smoke_tests
+    def initialize(test_classes)
+      @smoke_tests_classes = test_classes
     end
 
     def each(&block)
@@ -15,7 +15,7 @@ module Kapnismology
     end
 
     def passed?
-     evaluations.all?{|evaluation| evaluation.passed}
+     evaluations.all?{|evaluation| evaluation.passed?}
     end
 
     def to_json
@@ -25,10 +25,9 @@ module Kapnismology
     private
 
     def evaluations
-      @evaluations ||= @smoke_tests.map do |smoke_test|
-        result = smoke_test.new.result
-        Evaluation.new(smoke_test.name, result) if result
-      end.compact
+      @evaluations ||= @smoke_tests_classes.map do |klass|
+        Evaluation.new(klass)
+      end
     end
   end
 

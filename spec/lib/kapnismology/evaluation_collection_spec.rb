@@ -6,7 +6,7 @@ module Kapnismology
     let(:data) {[:berserk]}
     let(:passed) {true}
     let(:message) {'黄金時代'}
-    let(:result) {Result.new(data, passed, message)}
+    let(:result) {Result.new(passed, data, message)}
     let(:name) {'guts'}
     let(:smoke_tests) {[FakeSmokeTest]}
     let(:evaluations) {EvaluationCollection.new(smoke_tests)}
@@ -20,13 +20,13 @@ module Kapnismology
         expect(evaluations.passed?).to eq(true)
       end
       it 'returns a json object' do
-        expected = '[{"test_name":"guts","result":{"result":["berserk"],"passed":true,"message":"黄金時代"}}]'
+        expected = '[{"guts":{"passed":true,"data":["berserk"],"message":"黄金時代"}}]'
         expect(evaluations.to_json).to eq(expected)
       end
     end
 
     context 'not all the evaluations passed' do
-      let(:result) {Result.new(data, false, message)}
+      let(:result) {Result.new(false, data, message)}
       before do
         FakeSmokeTest.name = name
         FakeSmokeTest.result = result
