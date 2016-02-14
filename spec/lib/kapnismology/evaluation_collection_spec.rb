@@ -1,15 +1,14 @@
 require 'spec_helper'
 
 module Kapnismology
-
   RSpec.describe EvaluationCollection do
-    let(:data) {[:berserk]}
-    let(:passed) {true}
-    let(:message) {'黄金時代'}
-    let(:result) {Result.new(passed, data, message)}
-    let(:name) {'guts'}
-    let(:smoke_tests) {[FakeSmokeTest]}
-    let(:evaluations) {EvaluationCollection.new(smoke_tests)}
+    let(:data) { [:berserk] }
+    let(:passed) { true }
+    let(:message) { '黄金時代' }
+    let(:result) { Result.new(passed, data, message) }
+    let(:name) { 'guts' }
+    let(:smoke_tests) { [FakeSmokeTest] }
+    let(:evaluations) { EvaluationCollection.new(smoke_tests) }
 
     context 'all evaluation passed' do
       before do
@@ -26,7 +25,7 @@ module Kapnismology
     end
 
     context 'not all the evaluations passed' do
-      let(:result) {Result.new(false, data, message)}
+      let(:result) { Result.new(false, data, message) }
       before do
         FakeSmokeTest.name = name
         FakeSmokeTest.result = result
@@ -35,6 +34,5 @@ module Kapnismology
         expect(evaluations.passed?).to eq(false)
       end
     end
-
   end
 end

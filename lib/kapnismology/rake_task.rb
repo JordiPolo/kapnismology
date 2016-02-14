@@ -6,7 +6,7 @@ module Kapnismology
         puts evaluation.to_s
         puts
       end
-      fail 'We have some failures in our smoke tests' unless evaluations.passed?
+      raise 'We have some failures in our smoke tests' unless evaluations.passed?
     end
   end
 end

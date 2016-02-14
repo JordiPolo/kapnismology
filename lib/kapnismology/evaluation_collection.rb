@@ -8,14 +8,14 @@ module Kapnismology
       @smoke_tests_classes = test_classes
     end
 
-    def each(&block)
+    def each(&_block)
       evaluations.each do |member|
-        block.call(member)
+        yield(member)
       end
     end
 
     def passed?
-     evaluations.all?{|evaluation| evaluation.passed?}
+      evaluations.all?(&:passed?)
     end
 
     def to_json
@@ -30,5 +30,4 @@ module Kapnismology
       end
     end
   end
-
 end

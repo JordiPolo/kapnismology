@@ -46,6 +46,7 @@ GEM
     adamantium (0.2.0)
       ice_nine (~> 0.11.0)
       memoizable (~> 0.4.0)
+    addressable (2.4.0)
     anima (0.3.0)
       abstract_type (~> 0.0.7)
       adamantium (~> 0.2)
@@ -58,6 +59,13 @@ GEM
     ast (2.2.0)
     builder (3.2.2)
     byebug (8.2.2)
+    capybara (2.6.2)
+      addressable
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
     combustion (0.5.4)
       activesupport (>= 3.0.0)
       railties (>= 3.0.0)
@@ -177,6 +185,8 @@ GEM
       equalizer (~> 0.0.9)
       parser (~> 2.3.0)
       procto (~> 0.0.2)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
@@ -184,6 +194,7 @@ PLATFORMS
 DEPENDENCIES
   appraisal (~> 2.1)
   byebug (~> 8.0)
+  capybara
   combustion (~> 0.5.3)
   kapnismology!
   mutant (~> 0.8)

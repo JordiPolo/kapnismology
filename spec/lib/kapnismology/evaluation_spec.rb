@@ -4,10 +4,10 @@ module Kapnismology
   RSpec.describe Evaluation do
     class TestSmokeTest
       def result
-        Result.new(true, [:berserk], '黄金時代') #defined down there in the let
+        Result.new(true, [:berserk], '黄金時代') # defined down there in the let
       end
     end
-    let(:evaluation) {Evaluation.new(TestSmokeTest)}
+    let(:evaluation) { Evaluation.new(TestSmokeTest) }
 
     it 'creates a json representation' do
       expected = '{"TestSmokeTest":{"passed":true,"data":["berserk"],"message":"黄金時代"}}'
@@ -22,6 +22,5 @@ module Kapnismology
       expected = "The smoke test TestSmokeTest passed\n 黄金時代"
       expect(evaluation.to_s).to eq(expected)
     end
-
   end
 end

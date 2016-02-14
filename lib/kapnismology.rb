@@ -1,7 +1,5 @@
-#Engines blow up when being autoloaded by Rails and at the same time loaded by other gems
-unless defined?(Kapnismology::Engine)
-  require "kapnismology/engine"
-end
+# Engines blow up when being autoloaded by Rails and at the same time loaded by other gems
+require 'kapnismology/engine' unless defined?(Kapnismology::Engine)
 require 'kapnismology/result'
 require 'kapnismology/evaluation'
 require 'kapnismology/evaluation_collection'

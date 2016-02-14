@@ -3,7 +3,7 @@ require 'rspec'
 require 'byebug'
 
 require 'kapnismology'
-require File.expand_path("../support/fake_smoketest", __FILE__)
+require File.expand_path('../support/fake_smoketest', __FILE__)
 require 'capybara/rspec'
 
 Combustion.initialize! :all
@@ -26,9 +26,7 @@ RSpec.configure do |config|
 
   config.warnings = true
 
-  if config.files_to_run.one?
-    config.default_formatter = 'doc'
-  end
+  config.default_formatter = 'doc' if config.files_to_run.one?
 
   config.order = :random
 

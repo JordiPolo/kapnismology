@@ -1,11 +1,10 @@
 require 'json'
 
 module Kapnismology
-
   # Mapping of test_name => result for each smoke test
   class Evaluation
     def initialize(test_class)
-      @name = test_class.name.split("::").last
+      @name = test_class.name.split('::').last
       @result = test_class.new.result || unavailable_result
     end
 
@@ -24,11 +23,11 @@ module Kapnismology
     private
 
     def unavailable_result
-      Result.new(false, {}, "This test has not returned any result.")
+      Result.new(false, {}, 'This test has not returned any result.')
     end
 
     def passed_or_failed_text
-      passed? ? "passed" : "failed"
+      passed? ? 'passed' : 'failed'
     end
   end
 end

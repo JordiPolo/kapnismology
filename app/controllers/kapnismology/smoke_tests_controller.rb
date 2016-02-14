@@ -1,4 +1,6 @@
 module Kapnismology
+  # This is called when the user goes to the /smoke_test URL. This calls all the
+  # smoke tests registered in the application and gather the results
   class SmokeTestsController < ApplicationController
     def index
       evaluations = SmokeTest.evaluations
@@ -6,6 +8,7 @@ module Kapnismology
     end
 
     private
+
     def status(evaluations)
       if evaluations.passed?
         :ok
