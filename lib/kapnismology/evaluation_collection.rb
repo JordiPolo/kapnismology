@@ -1,6 +1,7 @@
 require 'json'
 
 module Kapnismology
+  # A collection of the results of the smoke tests
   class EvaluationCollection
     include Enumerable
 

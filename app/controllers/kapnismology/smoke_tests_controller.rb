@@ -3,11 +3,19 @@ module Kapnismology
   # smoke tests registered in the application and gather the results
   class SmokeTestsController < ApplicationController
     def index
-      evaluations = SmokeTest.evaluations
+      evaluations = SmokeTest.evaluations(allowed_tags, blacklist)
       render text: evaluations.to_json, status: status(evaluations)
     end
 
     private
+
+    def allowed_tags
+      params[:tags] ? params[:tags].split(',') : [SmokeTest::RUNTIME_TAG]
+    end
+
+    def blacklist
+      params[:skip].to_s.split(',')
+    end
 
     def status(evaluations)
       if evaluations.passed?

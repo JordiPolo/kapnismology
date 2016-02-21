@@ -5,6 +5,10 @@ module Kapnismology
   # Inherit from this class and implement the result and self.name method
   #
   class SmokeTest
+    DEPLOYMENT_TAG = 'deployment'.freeze
+    RUNTIME_TAG = 'runtime'.freeze
+    DEFAULT_TAGS = [DEPLOYMENT_TAG, RUNTIME_TAG].freeze
+
     def result
       raise 'this method has to be implemented in inherited classes'
     end
@@ -18,8 +22,19 @@ module Kapnismology
         @smoke_tests ||= []
       end
 
-      def evaluations
-        EvaluationCollection.new(smoke_tests)
+      def evaluations(allowed_tags, blacklist)
+        # We will run any class which categories are in the allowed list
+        # and not blacklisted
+        runable_tests = smoke_tests.select do |test|
+          klass_name = test.name.split('::').last
+          !blacklist.include?(klass_name) &&
+            !(allowed_tags & test.tags).empty?
+        end
+        EvaluationCollection.new(runable_tests)
+      end
+
+      def tags
+        DEFAULT_TAGS
       end
     end
   end

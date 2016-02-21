@@ -3,6 +3,7 @@ module Kapnismology
     class << self
       attr_accessor :name
       attr_accessor :result
+      attr_accessor :tags
     end
 
     def result

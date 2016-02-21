@@ -1,3 +1,7 @@
+# 1.1.0
+* Allows to provide a "tags" parameter to the url to only run smoke tests tagged with certain tags.
+* Allows to provide a "skip" parameted to the url to skip certain smoke tests
+
 # 1.0.0
 * Output uses "data" to indicate data, the test name is the key of the
   hash.

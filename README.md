@@ -7,7 +7,7 @@ Kapnismology 'the study of smoke', is a gem which contains an engine to easily c
 Kapnismology only supports Rails.
 In the Gemfile write:
 ```
-gem 'kapnismology', '~> 0.2'
+gem 'kapnismology', '~> 1.1'
 ```
 
 In your config/routes write:
@@ -43,8 +43,50 @@ In this case the result of this class would be added to the result as:
 {'MySmokeTest': { passed: true, data: { connection: 'good' }, message: 'Connected!' }}
 ```
 
-If you want to change the name of the test, define self.name in your
+## Naming
+
+If you want to change the name of the test, define `self.name` in your
 smoke test class.
+
+
+## Tagging and running tags
+
+All smoke tests are tagged by default with 'deployment' and 'runtime'.
+If you want to tag your test with any one of the above or any other tag, just overwrite the `self.categories` method in your smoke test class.
+The following example creates a smoke test tagged with the tags 'slow' and 'integration'.
+
+```Ruby
+class ExpensiveTest < Kapnismology::SmokeTest
+  def result
+  end
+  def self.categories
+    ['slow', 'integration']
+  end
+end
+```
+
+When you call the URL, all smoke tests marked with 'runtime' will be run. As by default all smoke test have the tags 'deployment' and 'runtime' they will all be run.
+
+The above smoke test as it has not the 'runtime' category, it will not be run. To run it you should call your service like this:
+```
+ wget http://myservice.com/smoke_test?tags=integration_
+```
+
+It will run all your integration tests. You can run it together with your runtime tests also:
+```
+ wget http://myservice.com/smoke_test?tags=integration,runtime
+```
+
+
+## Skipping tests
+
+If you want to skip some smoke test when you call the URL then you can add the 'skip' query parameter to the URL indicating the tests you want to skip.
+For instance:
+```
+ wget http://myservice.com/smoke_test?skip=ToNotBeCalled,NeitherCallThis_
+```
+
+
 
 ## TODO
 
