@@ -4,7 +4,10 @@ module Kapnismology
     # Rails engine to automatically load our code and smoke tests libraries
     class Engine < ::Rails::Engine
       initializer 'kapnismology.add_autoload_paths', before: :set_autoload_paths do |app|
-        app.config.eager_load_paths += Dir["#{app.config.root}/lib/**/*"]
+        smoketest_dir = Rails.root.join('lib', 'smoke_test')
+        if smoketest_dir.exist?
+          Dir[File.join(smoketest_dir, '*.rb')].each {|file| require file }
+        end
       end
 
       isolate_namespace Kapnismology

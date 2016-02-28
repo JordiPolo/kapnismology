@@ -7,13 +7,13 @@ Kapnismology 'the study of smoke', is a gem which contains an engine to easily c
 Kapnismology only supports Rails.
 In the Gemfile write:
 ```
-gem 'kapnismology', '~> 1.1'
+gem 'kapnismology', '~> 1.2'
 ```
 
 In your config/routes write:
 
 ```
-  mount Kapnismology::Engine, at: "/smoke_test"
+  Kapnismology::Routes.insert!('/smoke_test')
 ```
 
 ## Usage
@@ -42,6 +42,12 @@ In this case the result of this class would be added to the result as:
 ```
 {'MySmokeTest': { passed: true, data: { connection: 'good' }, message: 'Connected!' }}
 ```
+
+## Loading tests
+
+Kapnismology will find any class which inherits from `Kapnismology::SmokeTest` in memory.
+Kapnismology will require all the files inside `lib/smoke_test`.
+If for any reason you want to have your test in any other location, then you will need to make sure they are properly required.
 
 ## Naming
 

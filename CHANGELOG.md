@@ -1,3 +1,7 @@
+# 1.2.0
+* Loads files in 'lib/smoke_test' if available. Do not force eager loading.
+* Allow usage with Rails 5
+
 # 1.1.0
 * Allows to provide a "tags" parameter to the url to only run smoke tests tagged with certain tags.
 * Allows to provide a "skip" parameted to the url to skip certain smoke tests
