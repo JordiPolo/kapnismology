@@ -26,9 +26,9 @@ module Kapnismology
 
   # Use this class when your test is not valid in the current situation
   # For instance when you have a test for deployments that have not happen, etc.
-  class UnTestableResult
+  class NullResult
     attr_reader :message
-    def initialize(message = 'The result could not tested')
+    def initialize(message = 'The result could not be determined')
       @message = message
     end
     def passed?

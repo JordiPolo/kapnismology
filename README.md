@@ -56,16 +56,17 @@ smoke test class.
 
 ## Not runnable tests
 
-If your test find a situation when it does not make sense, then you can return a `Kapnismology::UnTestableResult` instead of a `Kapnismology::Result`. Like:
+If your test find a situation when it does not make sense, then you can return a `Kapnismology::NullResult` instead of a `Kapnismology::Result`. Like:
 ```
 if (File.exist?('that file'))
   Result.new(....)
 else
-  UnTestableResult.new
+  NullResult.new
 end
 ```
 
-UnTestableResult do not need any parameter.
+Be very careful of not returning NullResult when you should be returning a failing Result.
+NullResult do not need any parameter but you can optionally pass a message.
 
 ## Tagging and running tags
 

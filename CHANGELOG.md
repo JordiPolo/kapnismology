@@ -1,3 +1,6 @@
+# 1.4.0
+* Redo untestable result functionality and rename it to NullResult
+
 # 1.3.0
 * Add UnTestableResult as a possible result so tests can skip situations
 

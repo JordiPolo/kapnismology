@@ -12,12 +12,12 @@ module Kapnismology
       @result.passed?
     end
 
+    def null_result?
+      @result.is_a?(NullResult)
+    end
+
     def as_json(_options = nil)
-      if @result.is_a?(Result)
-        { @name => @result.to_hash }
-      else
-        {}
-      end
+      { @name => @result.to_hash }
     end
 
     def to_s
