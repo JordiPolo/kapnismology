@@ -54,6 +54,18 @@ If for any reason you want to have your test in any other location, then you wil
 If you want to change the name of the test, define `self.name` in your
 smoke test class.
 
+## Not runnable tests
+
+If your test find a situation when it does not make sense, then you can return a `Kapnismology::UnTestableResult` instead of a `Kapnismology::Result`. Like:
+```
+if (File.exist?('that file'))
+  Result.new(....)
+else
+  UnTestableResult.new
+end
+```
+
+UnTestableResult do not need any parameter.
 
 ## Tagging and running tags
 

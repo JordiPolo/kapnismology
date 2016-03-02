@@ -13,7 +13,11 @@ module Kapnismology
     end
 
     def as_json(_options = nil)
-      { @name => @result.to_hash }
+      if @result.is_a?(Result)
+        { @name => @result.to_hash }
+      else
+        {}
+      end
     end
 
     def to_s

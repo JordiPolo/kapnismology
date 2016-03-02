@@ -1,3 +1,6 @@
+# 1.3.0
+* Add UnTestableResult as a possible result so tests can skip situations
+
 # 1.2.0
 * Loads files in 'lib/smoke_test' if available. Do not force eager loading.
 * Allow usage with Rails 5

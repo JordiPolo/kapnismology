@@ -34,5 +34,17 @@ module Kapnismology
         expect(evaluations.passed?).to eq(false)
       end
     end
+
+    context 'Result could not be evaluated' do
+      let(:result) { UnTestableResult.new(message) }
+      before do
+        FakeSmokeTest.name = name
+        FakeSmokeTest.result = result
+      end
+      it 'returns and empty json object' do
+        expected = '[{}]'
+        expect(evaluations.to_json).to eq(expected)
+      end
+    end
   end
 end
