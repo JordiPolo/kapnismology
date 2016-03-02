@@ -1,3 +1,6 @@
+# 1.5.0
+* Result classes can be used without the Kapnismology module name
+
 # 1.4.0
 * Redo untestable result functionality and rename it to NullResult
 

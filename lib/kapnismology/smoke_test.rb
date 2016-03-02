@@ -37,5 +37,14 @@ module Kapnismology
         DEFAULT_TAGS
       end
     end
+
+    private
+
+    # These classes makes it very simple to implementors of results to use them without the module name
+    class Result < Kapnismology::Result
+    end
+    class NullResult < Kapnismology::NullResult
+    end
+
   end
 end
