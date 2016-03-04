@@ -1,3 +1,7 @@
+# 1.6.0
+* Improved terminal output for rake tasks
+* Solved bug where smoketest class did not require all its dependencies
+
 # 1.5.0
 * Result classes can be used without the Kapnismology module name
 

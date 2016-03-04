@@ -1,4 +1,5 @@
 require 'json'
+require 'kapnismology/terminal'
 
 module Kapnismology
   # Mapping of test_name => result for each smoke test
@@ -21,7 +22,11 @@ module Kapnismology
     end
 
     def to_s
-      "The smoke test #{@name} #{passed_or_failed_text}\n #{@result.message}"
+<<-eos
+The smoke test #{@name} #{passed_or_failed_text}
+  #{@result.message}
+#{@result.to_hash[:data]}
+eos
     end
 
     private
@@ -31,7 +36,7 @@ module Kapnismology
     end
 
     def passed_or_failed_text
-      passed? ? 'passed' : 'failed'
+      passed? ? Terminal.green('passed') : Terminal.red('failed')
     end
   end
 end

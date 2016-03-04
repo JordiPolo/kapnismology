@@ -19,7 +19,7 @@ module Kapnismology
     end
 
     it 'creates a string representation' do
-      expected = "The smoke test TestSmokeTest passed\n 黄金時代"
+      expected = "The smoke test TestSmokeTest \e[32m\e[1mpassed\e[0m\n  黄金時代\n[:berserk]\n"
       expect(evaluation.to_s).to eq(expected)
     end
   end

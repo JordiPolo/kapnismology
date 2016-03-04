@@ -1,3 +1,5 @@
+require 'kapnismology/result'
+require 'kapnismology/evaluation_collection'
 
 module Kapnismology
   #
@@ -22,7 +24,7 @@ module Kapnismology
         @smoke_tests ||= []
       end
 
-      def evaluations(allowed_tags, blacklist)
+      def evaluations(allowed_tags=[RUNTIME_TAG], blacklist=[])
         # We will run any class which categories are in the allowed list
         # and not blacklisted
         runable_tests = smoke_tests.select do |test|
