@@ -1,5 +1,5 @@
 require 'kapnismology/result'
-require 'kapnismology/evaluation_collection'
+require 'kapnismology/smoke_test_collection'
 
 module Kapnismology
   #
@@ -11,28 +11,33 @@ module Kapnismology
     RUNTIME_TAG = 'runtime'.freeze
     DEFAULT_TAGS = [DEPLOYMENT_TAG, RUNTIME_TAG].freeze
 
+    # Default constructor may be overwritten by child class
+    def initialize
+      @all_result_messages = []
+    end
+
     def result
-      raise 'this method has to be implemented in inherited classes'
+
+    end
+
+    def __result__
+      result_object = result
+      unless result_object.is_a?(Kapnismology::BaseResult)
+        message = "Smoke test #{self.class}, returned #{result_object.class} instead of a Result"
+        result_object = Result.new(false, { returned_class: result_object.class }, message)
+      end
+    rescue SmokeTestFailed => e
+      result_object = e.result
+    rescue => e
+      message = "Unrescued error happened in #{self.class}"
+      result_object = Result.new(false, { exception: e.class, message: e.message }, message)
+    ensure
+      return result_object.add_extra_messages(@all_result_messages)
     end
 
     class << self
       def inherited(klass)
-        smoke_tests << klass
-      end
-
-      def smoke_tests
-        @smoke_tests ||= []
-      end
-
-      def evaluations(allowed_tags=[RUNTIME_TAG], blacklist=[])
-        # We will run any class which categories are in the allowed list
-        # and not blacklisted
-        runable_tests = smoke_tests.select do |test|
-          klass_name = test.name.split('::').last
-          !blacklist.include?(klass_name) &&
-            !(allowed_tags & test.tags).empty?
-        end
-        EvaluationCollection.new(runable_tests)
+        SmokeTestCollection.add_smoke_test(klass)
       end
 
       def tags
@@ -40,13 +45,29 @@ module Kapnismology
       end
     end
 
-    private
+    protected
+
+    def puts_to_result(message)
+      @all_result_messages ||= []
+      @all_result_messages.push(message)
+    end
 
     # These classes makes it very simple to implementors of results to use them without the module name
     class Result < Kapnismology::Result
     end
     class NullResult < Kapnismology::NullResult
     end
+    class Success < Kapnismology::Success
+    end
 
+    class SmokeTestFailed < StandardError
+      def initialize(data, message)
+        @data = data
+        @message = message
+      end
+      def result
+        Kapnismology::Result.new(false, @data, @message)
+      end
+    end
   end
 end

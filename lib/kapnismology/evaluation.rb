@@ -2,11 +2,11 @@ require 'json'
 require 'kapnismology/terminal'
 
 module Kapnismology
-  # Mapping of test_name => result for each smoke test
+  # Mapping of test_name => returned result for each smoke test
   class Evaluation
     def initialize(test_class)
       @name = test_class.name.split('::').last
-      @result = test_class.new.result || unavailable_result
+      @result = test_class.new.__result__ || unavailable_result
     end
 
     def passed?
@@ -22,21 +22,13 @@ module Kapnismology
     end
 
     def to_s
-<<-eos
-The smoke test #{@name} #{passed_or_failed_text}
-  #{@result.message}
-#{@result.to_hash[:data]}
-eos
+      @result.to_s(@name)
     end
 
     private
 
     def unavailable_result
       Result.new(false, {}, 'This test has not returned any result.')
-    end
-
-    def passed_or_failed_text
-      passed? ? Terminal.green('passed') : Terminal.red('failed')
     end
   end
 end

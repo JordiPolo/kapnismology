@@ -20,7 +20,7 @@ module Kapnismology
     end
 
     def to_json
-      evaluations.delete_if{ |evaluation| evaluation.null_result? }.to_json
+      evaluations.delete_if(&:null_result?).to_json
     end
 
     private

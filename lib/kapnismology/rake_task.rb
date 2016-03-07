@@ -2,7 +2,7 @@ require 'kapnismology/terminal'
 module Kapnismology
   class RakeTask
     def output
-      evaluations = SmokeTest.evaluations
+      evaluations = SmokeTestCollection.evaluations
       puts
       puts
       evaluations.each do |evaluation|

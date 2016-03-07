@@ -14,12 +14,12 @@ module Kapnismology
     end
     scenario 'Access the smoke_test URL without parameters' do
       visit '/smoke_test'
-      expected = '[{"guts":{"passed":true,"data":["berserk"],"message":"黄金時代"}}]'
+      expected = '[{"guts":{"passed":true,"data":["berserk"],"message":"黄金時代","extra_messages":[]}}]'
       expect(page).to have_text(expected)
     end
     scenario 'Access the smoke_test URL with parameters to access tests for runtime' do
       visit '/smoke_test?tags=runtime'
-      expected = '[{"guts":{"passed":true,"data":["berserk"],"message":"黄金時代"}}]'
+      expected = '[{"guts":{"passed":true,"data":["berserk"],"message":"黄金時代","extra_messages":[]}}]'
       expect(page).to have_text(expected)
     end
     scenario 'Access the smoke_test URL with parameters to access tests for deployments' do
@@ -29,7 +29,7 @@ module Kapnismology
     end
     scenario 'Access the smoke_test URL with parameters to skip some other test' do
       visit '/smoke_test?skip=junk,ne'
-      expected = '[{"guts":{"passed":true,"data":["berserk"],"message":"黄金時代"}}]'
+      expected = '[{"guts":{"passed":true,"data":["berserk"],"message":"黄金時代","extra_messages":[]}}]'
       expect(page).to have_text(expected)
     end
     scenario 'Access the smoke_test URL with parameters to skip our test' do

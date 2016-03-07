@@ -6,11 +6,14 @@ module Kapnismology
       def result
         Result.new(true, [:berserk], '黄金時代') # defined down there in the let
       end
+      def __result__
+        result
+      end
     end
     let(:evaluation) { Evaluation.new(TestSmokeTest) }
 
     it 'creates a json representation' do
-      expected = '{"TestSmokeTest":{"passed":true,"data":["berserk"],"message":"黄金時代"}}'
+      expected = '{"TestSmokeTest":{"passed":true,"data":["berserk"],"message":"黄金時代","extra_messages":[]}}'
       expect(evaluation.to_json).to eq(expected)
     end
 
@@ -19,7 +22,7 @@ module Kapnismology
     end
 
     it 'creates a string representation' do
-      expected = "The smoke test TestSmokeTest \e[32m\e[1mpassed\e[0m\n  黄金時代\n[:berserk]\n"
+      expected = "#{Terminal.green('passed')}: TestSmokeTest\n\e[1m黄金時代\e[0m\n   [:berserk]\n"
       expect(evaluation.to_s).to eq(expected)
     end
   end

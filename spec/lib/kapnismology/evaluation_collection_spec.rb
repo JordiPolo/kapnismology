@@ -19,7 +19,7 @@ module Kapnismology
         expect(evaluations.passed?).to eq(true)
       end
       it 'returns a json object' do
-        expected = '[{"guts":{"passed":true,"data":["berserk"],"message":"黄金時代"}}]'
+        expected = '[{"guts":{"passed":true,"data":["berserk"],"message":"黄金時代","extra_messages":[]}}]'
         expect(evaluations.to_json).to eq(expected)
       end
     end

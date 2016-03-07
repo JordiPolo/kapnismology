@@ -1,3 +1,8 @@
+# 1.7.0
+* Added puts_to_result method to allow context information in checks
+* Raising SmokeTestFailed will make a test to return proper failed information
+* Returning a Success object will pass the test
+
 # 1.6.0
 * Improved terminal output for rake tasks
 * Solved bug where smoketest class did not require all its dependencies

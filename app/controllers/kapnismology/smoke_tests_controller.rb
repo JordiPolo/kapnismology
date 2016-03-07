@@ -3,7 +3,7 @@ module Kapnismology
   # smoke tests registered in the application and gather the results
   class SmokeTestsController < ApplicationController
     def index
-      evaluations = SmokeTest.evaluations(allowed_tags, blacklist)
+      evaluations = SmokeTestCollection.evaluations(allowed_tags, blacklist)
       render text: evaluations.to_json, status: status(evaluations)
     end
 
