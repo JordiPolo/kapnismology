@@ -1,3 +1,7 @@
+# 1.8.2
+* Allow to see message, data and extra_messages to make for painless
+  testing
+
 # 1.8.1
 * Allow to raise SmokeTestFailed from outside smoketest classes
 

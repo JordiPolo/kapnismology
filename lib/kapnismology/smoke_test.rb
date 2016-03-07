@@ -37,6 +37,8 @@ module Kapnismology
         message = "Smoke test #{self.class}, returned #{result_object.class} instead of a Result"
         result_object = Result.new(false, { returned_class: result_object.class }, message)
       end
+    rescue Kapnismology::SmokeTestFailed => e
+      result_object = e.result
     rescue SmokeTestFailed => e
       result_object = e.result
     rescue => e

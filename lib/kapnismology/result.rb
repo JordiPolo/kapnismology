@@ -3,6 +3,7 @@ module Kapnismology
   # It is useful to be able to test if the object is of a correct result type.
   # It also have methods to add information and serialize it.
   class BaseResult
+    attr_reader :data, :message, :extra_messages # Deprecated but many users test on these properties
     def to_hash
       { passed: passed?, data: @data, message: @message, extra_messages: @extra_messages }
     end
