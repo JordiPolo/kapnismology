@@ -1,7 +1,6 @@
 require 'kapnismology/evaluation_collection'
 
 module Kapnismology
-
   # This class maintains the collection of all the smoke tests found in the system
   class SmokeTestCollection
     class << self

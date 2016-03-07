@@ -159,6 +159,18 @@ end
 Using small methods that raise SmokeTestFailed when failed will help you write an easy to read `result` method.
 
 
+## Testing
+
+There is a Kapnismology::SpecHelper which can be useful when running your tests.
+Usage:
+```
+  RSpec.describe DatabaseSmokeTest do
+    let(:result) { Kapnismology::SpecHelper.result_for(described_class.new) }
+  ...
+```
+
+`result` will be processed so you do not need to deal with the internals of Kapnismology but just check the properties of a Result object
+
 ## TODO
 
 - Automount routes

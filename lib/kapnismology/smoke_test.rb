@@ -17,7 +17,6 @@ module Kapnismology
     end
 
     def result
-
     end
 
     def __result__
@@ -65,6 +64,7 @@ module Kapnismology
         @data = data
         @message = message
       end
+
       def result
         Kapnismology::Result.new(false, @data, @message)
       end

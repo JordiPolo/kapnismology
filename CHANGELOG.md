@@ -1,3 +1,7 @@
+# 1.8.0
+* Added SpecHelper class to make testing of results easier.
+* Added parameters to rake task helper so rake tasks can use tags.
+
 # 1.7.0
 * Added puts_to_result method to allow context information in checks
 * Raising SmokeTestFailed will make a test to return proper failed information

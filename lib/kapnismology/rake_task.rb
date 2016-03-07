@@ -1,8 +1,8 @@
 require 'kapnismology/terminal'
 module Kapnismology
   class RakeTask
-    def output
-      evaluations = SmokeTestCollection.evaluations
+    def output(allowed_tags = [SmokeTest::RUNTIME_TAG], blacklist = [])
+      evaluations = SmokeTestCollection.evaluations(allowed_tags, blacklist)
       puts
       puts
       evaluations.each do |evaluation|

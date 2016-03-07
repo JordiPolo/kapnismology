@@ -6,6 +6,7 @@ module Kapnismology
       def result
         Result.new(true, [:berserk], '黄金時代') # defined down there in the let
       end
+
       def __result__
         result
       end

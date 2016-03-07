@@ -30,13 +30,12 @@ RSpec.describe Kapnismology::Result do
   end
 
   context 'added some extra messages' do
-    let(:extra_messages) { ['42', '41'] }
+    let(:extra_messages) { %w(42 41) }
     let(:extra_char) { "\n" }
 
     before do
-      result.add_extra_messages(['42', '41'])
+      result.add_extra_messages(%w(42 41))
     end
     it_behaves_like 'serializes its data'
   end
-
 end
