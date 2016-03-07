@@ -1,3 +1,6 @@
+# 1.8.1
+* Allow to raise SmokeTestFailed from outside smoketest classes
+
 # 1.8.0
 * Added SpecHelper class to make testing of results easier.
 * Added parameters to rake task helper so rake tasks can use tags.
