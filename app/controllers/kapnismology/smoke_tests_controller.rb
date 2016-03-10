@@ -4,7 +4,7 @@ module Kapnismology
   class SmokeTestsController < ApplicationController
     def index
       evaluations = SmokeTestCollection.evaluations(allowed_tags, blacklist)
-      render text: evaluations.to_json, status: status(evaluations)
+      render json: evaluations.to_json, status: status(evaluations)
     end
 
     private
