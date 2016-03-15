@@ -1,3 +1,7 @@
+# 1.9
+* NullResult now appears in the output.
+* SmokeTestFailed accepts an exception as parameter
+
 # 1.8.2
 * Allow to see message, data and extra_messages to make for painless
   testing

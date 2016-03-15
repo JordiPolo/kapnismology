@@ -48,7 +48,7 @@ eos
   # * message: String with an extra message to provide human readable information
   class Result < BaseResult
     def initialize(passed, data, message)
-      raise ArgumentError, 'passed must be true or false' unless !!passed == passed
+      raise ArgumentError, 'passed argument must be true or false' unless !!passed == passed
       @passed = passed
       @data = data
       @message = message
@@ -56,12 +56,28 @@ eos
     end
   end
 
+  # This class can be returned when a check do not want to return an assertion on if
+  # it passed or not.
   class NullResult < BaseResult
     def initialize(data, message = 'The result could not be determined')
       @passed = true
       @data = data
       @message = message
       @extra_messages = []
+    end
+
+    # Redefining to have our own unique output
+    def to_hash
+      { data: @data, message: @message, extra_messages: @extra_messages }
+    end
+
+    # Redefining for unique output
+    def to_s(name)
+      <<-eos
+#{Terminal.yellow('Skipped')}: #{name}
+#{format_extra_messages(@extra_messages)}#{Terminal.bold(@message)}
+   #{@data}
+eos
     end
   end
 

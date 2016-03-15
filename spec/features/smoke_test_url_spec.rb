@@ -11,6 +11,10 @@ module Kapnismology
       FakeSmokeTest.name = name
       FakeSmokeTest.result = result
       FakeSmokeTest.tags = ['runtime']
+
+      FakeSmokeTest2.name = 'fake2'
+      FakeSmokeTest2.result = result
+      FakeSmokeTest2.tags = ['never_execute_this']
     end
     scenario 'Access the smoke_test URL without parameters' do
       visit '/smoke_test'

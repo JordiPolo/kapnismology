@@ -151,12 +151,13 @@ end
 def user_from_remote
   get_user
 rescue => e
-  raise SmokeTestFailed.new({class: e.class, message: e.message}, "Error raised when accessing user")
+  raise SmokeTestFailed.new(e, "Error raised when accessing user")
 end
  ...
 ```
 
 Using small methods that raise SmokeTestFailed when failed will help you write an easy to read `result` method.
+You can pass your own data to SmokeTestFailed or you can pass an exception which will be properly formatted.
 
 
 ## Testing

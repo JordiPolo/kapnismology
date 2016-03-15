@@ -1,7 +1,7 @@
 require 'json'
 
 module Kapnismology
-  # A collection of the results of the smoke tests
+  # A collection of the evaluations of the smoke tests
   class EvaluationCollection
     include Enumerable
 
@@ -20,7 +20,7 @@ module Kapnismology
     end
 
     def to_json
-      evaluations.delete_if(&:null_result?).to_json
+      evaluations.to_json
     end
 
     private

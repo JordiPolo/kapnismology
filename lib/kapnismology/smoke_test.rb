@@ -1,19 +1,8 @@
 require 'kapnismology/result'
 require 'kapnismology/smoke_test_collection'
+require 'kapnismology/smoke_test_failed'
 
 module Kapnismology
-
-  # This class can be raised to make Kapnismology create a failed result from your smoke test
-  class SmokeTestFailed < StandardError
-    def initialize(data, message)
-      @data = data
-      @message = message
-    end
-
-    def result
-      Kapnismology::Result.new(false, @data, @message)
-    end
-  end
   #
   # This is the base class for all the smoke tests.
   # Inherit from this class and implement the result and self.name method
@@ -31,9 +20,10 @@ module Kapnismology
     def result
     end
 
+    # Internally Kapnismology is calling this method. We are handling exceptions under the hood herer
     def __result__
       result_object = result
-      unless result_object.is_a?(Kapnismology::BaseResult)
+      unless result_object.class.ancestors.include?(Kapnismology::BaseResult)
         message = "Smoke test #{self.class}, returned #{result_object.class} instead of a Result"
         result_object = Result.new(false, { returned_class: result_object.class }, message)
       end

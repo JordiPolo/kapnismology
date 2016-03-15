@@ -7,42 +7,62 @@ module Kapnismology
     let(:message) { '黄金時代' }
     let(:result) { Result.new(passed, data, message) }
     let(:name) { 'guts' }
-    let(:smoke_tests) { [FakeSmokeTest] }
+    let(:smoke_tests) { [FakeSmokeTest, FakeSmokeTest2] }
     let(:evaluations) { EvaluationCollection.new(smoke_tests) }
+    let(:name2) { 'gits' }
 
     context 'all evaluation passed' do
       before do
         FakeSmokeTest.name = name
         FakeSmokeTest.result = result
+        FakeSmokeTest2.name = name2
+        FakeSmokeTest2.result = result
       end
       it '#passed? is true' do
         expect(evaluations.passed?).to eq(true)
       end
       it 'returns a json object' do
-        expected = '[{"guts":{"passed":true,"data":["berserk"],"message":"黄金時代","extra_messages":[]}}]'
+        first  = {"guts":{"passed":true,"data":["berserk"],"message":"黄金時代","extra_messages":[]}}
+        second = {"gits":{"passed":true,"data":["berserk"],"message":"黄金時代","extra_messages":[]}}
+        expected = [first, second].to_json
         expect(evaluations.to_json).to eq(expected)
       end
     end
 
     context 'not all the evaluations passed' do
-      let(:result) { Result.new(false, data, message) }
+      let(:failed_result) { Result.new(false, data, message) }
       before do
         FakeSmokeTest.name = name
-        FakeSmokeTest.result = result
+        FakeSmokeTest.result = failed_result
+        FakeSmokeTest2.name = name2
+        FakeSmokeTest2.result = result
       end
-      it '#passed? is true' do
+      it '#passed? is false' do
         expect(evaluations.passed?).to eq(false)
+      end
+      it 'returns a json object' do
+        first = {"guts":{"passed":false,"data":["berserk"],"message":"黄金時代","extra_messages":[]}}
+        second = {"gits":{"passed":true,"data":["berserk"],"message":"黄金時代","extra_messages":[]}}
+        expected = [first, second].to_json
+        expect(evaluations.to_json).to eq(expected)
       end
     end
 
-    context 'Result could not be evaluated' do
-      let(:result) { NullResult.new(message) }
+    context 'Some result could not be evaluated' do
+      let(:null_result) { NullResult.new(data, message) }
       before do
         FakeSmokeTest.name = name
         FakeSmokeTest.result = result
+        FakeSmokeTest2.name = name2
+        FakeSmokeTest2.result = null_result
       end
-      it 'returns and empty json object' do
-        expected = '[]'
+      it '#passed? is true' do
+        expect(evaluations.passed?).to eq(true)
+      end
+      it 'returns a json object without passed data' do
+        first = {"guts":{"passed":true,"data":["berserk"],"message":"黄金時代","extra_messages":[]}}
+        second = {"gits":{"data":["berserk"],"message":"黄金時代","extra_messages":[]}}
+        expected = [first, second].to_json
         expect(evaluations.to_json).to eq(expected)
       end
     end
