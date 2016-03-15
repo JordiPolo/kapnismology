@@ -22,8 +22,8 @@ module Kapnismology
         expect(evaluations.passed?).to eq(true)
       end
       it 'returns a json object' do
-        first  = {"guts":{"passed":true,"data":["berserk"],"message":"黄金時代","extra_messages":[]}}
-        second = {"gits":{"passed":true,"data":["berserk"],"message":"黄金時代","extra_messages":[]}}
+        first  = { guts: { passed:true, data:["berserk"], message: "黄金時代", extra_messages:[]}}
+        second  = { gits: { passed:true, data:["berserk"], message: "黄金時代", extra_messages:[]}}
         expected = [first, second].to_json
         expect(evaluations.to_json).to eq(expected)
       end
@@ -41,8 +41,8 @@ module Kapnismology
         expect(evaluations.passed?).to eq(false)
       end
       it 'returns a json object' do
-        first = {"guts":{"passed":false,"data":["berserk"],"message":"黄金時代","extra_messages":[]}}
-        second = {"gits":{"passed":true,"data":["berserk"],"message":"黄金時代","extra_messages":[]}}
+        first  = { guts: { passed:false, data:["berserk"], message: "黄金時代", extra_messages:[]}}
+        second  = { gits: { passed:true, data:["berserk"], message: "黄金時代", extra_messages:[]}}
         expected = [first, second].to_json
         expect(evaluations.to_json).to eq(expected)
       end
@@ -60,8 +60,8 @@ module Kapnismology
         expect(evaluations.passed?).to eq(true)
       end
       it 'returns a json object without passed data' do
-        first = {"guts":{"passed":true,"data":["berserk"],"message":"黄金時代","extra_messages":[]}}
-        second = {"gits":{"data":["berserk"],"message":"黄金時代","extra_messages":[]}}
+        first  = { guts: { passed:true, data:["berserk"], message: "黄金時代", extra_messages:[]}}
+        second  = { gits: { data:["berserk"], message: "黄金時代", extra_messages:[]}}
         expected = [first, second].to_json
         expect(evaluations.to_json).to eq(expected)
       end
