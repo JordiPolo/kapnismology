@@ -80,17 +80,17 @@ Will produce:
 
 ## Not runnable tests
 
-If your test find a situation when it does not make sense, then you can return a `NullResult` instead of a `Result`. Like:
-```
+If your check finds a situation when it does not make sense to test, you can return a `InfoResult` instead of a `Result`. Like:
+```ruby
 if (File.exist?('necessary file'))
   Result.new(....)
 else
-  NullResult.new
+  InfoResult.new({}, 'There is no need to run this test')
 end
 ```
 
-Be very careful of not returning NullResult when you should be returning a failing Result.
-NullResult do not need any parameter but you can optionally pass a message.
+Be very careful of not returning InfoResult when you should be returning a failing Result.
+
 
 ## Tagging and running tags
 

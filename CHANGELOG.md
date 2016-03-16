@@ -1,3 +1,6 @@
+# 1.10
+* Added a class InfoResult to substitute NullResult (which is deprecated now)
+
 # 1.9
 * NullResult now appears in the output.
 * SmokeTestFailed accepts an exception as parameter

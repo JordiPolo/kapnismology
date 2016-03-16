@@ -89,3 +89,32 @@ RSpec.describe Kapnismology::Success do
     expect(result.message).to eq(message)
   end
 end
+
+
+RSpec.describe Kapnismology::InfoResult do
+  let(:data) { { version: 'newest' } }
+  let(:message) { 'This check just provides info about the version' }
+  let(:name) { 'Skynet' }
+
+  [Kapnismology::InfoResult, Kapnismology::NullResult].each do |info_class|
+    let(:result) { info_class.new(data, message) }
+
+    it "#{info_class} creates a result which has passed the test" do
+      expect(result.passed?).to eq(true)
+      expect(result.data).to eq(data)
+      expect(result.message).to eq(message)
+    end
+
+    it "#{info_class}#to_hash creates a hash with data, message and extra messages" do
+      hash = result.to_hash
+      expect(hash).to eq(data: data, message: message, extra_messages: [])
+    end
+
+    it "#{info_class}#to_s shows a skipped check" do
+      first = "\e[33m\e[1mSkipped\e[0m: #{name}"
+      expected = "#{first}\n#{[].join("\n")}\e[1m#{message}\e[0m\n   #{data}\n"
+      expect(result.to_s(name)).to eq(expected)
+    end
+  end
+
+end

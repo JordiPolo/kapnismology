@@ -58,6 +58,8 @@ module Kapnismology
     # These classes makes it very simple to implementors of results to use them without the module name
     class Result < Kapnismology::Result
     end
+    class InfoResult < Kapnismology::InfoResult
+    end
     class NullResult < Kapnismology::NullResult
     end
     class Success < Kapnismology::Success

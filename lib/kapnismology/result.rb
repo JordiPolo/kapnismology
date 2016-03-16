@@ -56,9 +56,9 @@ eos
     end
   end
 
-  # This class can be returned when a check do not want to return an assertion on if
-  # it passed or not.
-  class NullResult < BaseResult
+  # This class can be returned when a check do not want to assert if it passed or not.
+  # Instead it can return certain information about the check or the system.
+  class InfoResult < BaseResult
     def initialize(data, message = 'The result could not be determined')
       @passed = true
       @data = data
@@ -71,14 +71,15 @@ eos
       { data: @data, message: @message, extra_messages: @extra_messages }
     end
 
-    # Redefining for unique output
-    def to_s(name)
-      <<-eos
-#{Terminal.yellow('Skipped')}: #{name}
-#{format_extra_messages(@extra_messages)}#{Terminal.bold(@message)}
-   #{@data}
-eos
+    private
+
+    def format_passed(_passed)
+      Terminal.yellow('Skipped')
     end
+  end
+
+  # Deprecated NullResult class provided for compatibility.
+  class NullResult < InfoResult
   end
 
   # Use this class when your test is not valid in the current situation
