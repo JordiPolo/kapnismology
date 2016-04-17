@@ -4,9 +4,10 @@ require 'kapnismology/terminal'
 module Kapnismology
   # Mapping of test_name => returned result for each smoke test
   class Evaluation
+    attr_reader :result
     def initialize(test_class)
       @name = test_class.name.split('::').last
-      @result = test_class.new.__result__ || unavailable_result
+      @result = test_class.new.__result__
     end
 
     def passed?
@@ -21,10 +22,5 @@ module Kapnismology
       @result.to_s(@name)
     end
 
-    private
-
-    def unavailable_result
-      Result.new(false, {}, 'This test has not returned any result.')
-    end
   end
 end

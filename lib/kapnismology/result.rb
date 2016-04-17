@@ -82,6 +82,9 @@ eos
   class NullResult < InfoResult
   end
 
+  class NotApplicableResult < BaseResult
+  end
+
   # Use this class when your test is not valid in the current situation
   # For instance when you have a test for deployments that have not happen, etc.
   class Success < BaseResult

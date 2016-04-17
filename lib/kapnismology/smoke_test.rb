@@ -20,9 +20,9 @@ module Kapnismology
     def result
     end
 
-    # Internally Kapnismology is calling this method. We are handling exceptions under the hood herer
+    # Internally Kapnismology is calling this method. We are handling exceptions under the hood here
     def __result__
-      result_object = result
+      result_object = result || Result.new(false, {}, 'This test has not returned any result.')
       unless result_object.class.ancestors.include?(Kapnismology::BaseResult)
         message = "Smoke test #{self.class}, returned #{result_object.class} instead of a Result"
         result_object = Result.new(false, { returned_class: result_object.class }, message)

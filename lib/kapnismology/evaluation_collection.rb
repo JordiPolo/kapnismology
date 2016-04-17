@@ -26,8 +26,10 @@ module Kapnismology
     private
 
     def evaluations
-      @evaluations ||= @smoke_tests_classes.map do |klass|
-        Evaluation.new(klass)
+      @evaluations ||= @smoke_tests_classes.inject([]) do |memo, klass|
+        evaluation = Evaluation.new(klass)
+        memo << evaluation if !evaluation.result.class.ancestors.include?(Kapnismology::NotApplicableResult)
+        memo
       end
     end
   end

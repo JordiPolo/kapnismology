@@ -1,3 +1,7 @@
+# 1.11
+* Added a class NotApplicableResult for the cases when we really really
+  do not want to show a result in the output
+
 # 1.10
 * Added a class InfoResult to substitute NullResult (which is deprecated now)
 
