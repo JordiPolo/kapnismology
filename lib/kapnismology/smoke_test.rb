@@ -24,7 +24,7 @@ module Kapnismology
     def __result__
       Rails.logger.info("[Kapnismology] getting result")
       result_object = result || Result.new(false, {}, 'This test has not returned any result.')
-      Rails.logger.info("[kapnismology] Result object #{result_object}")
+      Rails.logger.info("[kapnismology] Result object #{result_object.to_s('aaaaaaa')}")
       unless result_object.class.ancestors.include?(Kapnismology::BaseResult)
         message = "Smoke test #{self.class}, returned #{result_object.class} instead of a Result"
         result_object = Result.new(false, { returned_class: result_object.class }, message)
