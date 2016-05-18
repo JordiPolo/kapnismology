@@ -22,19 +22,25 @@ module Kapnismology
 
     # Internally Kapnismology is calling this method. We are handling exceptions under the hood here
     def __result__
+      Rails.logger.info("[Kapnismology] getting result")
       result_object = result || Result.new(false, {}, 'This test has not returned any result.')
+      Rails.logger.info("[kapnismology] Result object #{result_object}")
       unless result_object.class.ancestors.include?(Kapnismology::BaseResult)
         message = "Smoke test #{self.class}, returned #{result_object.class} instead of a Result"
         result_object = Result.new(false, { returned_class: result_object.class }, message)
       end
     rescue Kapnismology::SmokeTestFailed => e
+      Rails.logger.info("[kapnismology] rescuying testfailed #{e.message} #{e.class}")
       result_object = e.result
     rescue SmokeTestFailed => e
+      Rails.logger.info("[kapnismology] rescuying testfailed #{e.message} #{e.class}")
       result_object = e.result
     rescue Exception => e # Rescuying networking and IO errors also.
+      Rails.logger.info("[kapnismology] rescuying exception #{e.message} #{e.class} #{e.backtrace}")
       message = "Unrescued error happened in #{self.class}"
       result_object = Result.new(false, { exception: e.class, message: e.message, backtrace: e.backtrace }, message)
     ensure
+      Rails.logger.info("got result object #{result_object}")
       return result_object.add_extra_messages(@all_result_messages)
     end
 
