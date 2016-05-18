@@ -31,9 +31,9 @@ module Kapnismology
       result_object = e.result
     rescue SmokeTestFailed => e
       result_object = e.result
-    rescue => e
+    rescue Exception => e # Rescuying networking and IO errors also.
       message = "Unrescued error happened in #{self.class}"
-      result_object = Result.new(false, { exception: e.class, message: e.message }, message)
+      result_object = Result.new(false, { exception: e.class, message: e.message, backtrace: e.backtrace }, message)
     ensure
       return result_object.add_extra_messages(@all_result_messages)
     end
