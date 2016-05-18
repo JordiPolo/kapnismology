@@ -40,7 +40,7 @@ module Kapnismology
       message = "Unrescued error happened in #{self.class}"
       result_object = Result.new(false, { exception: e.class, message: e.message, backtrace: e.backtrace }, message)
     ensure
-      Rails.logger.info("got result object #{result_object}")
+      Rails.logger.info("got result object #{result_object.to_s('aaaa')}")
       return result_object.add_extra_messages(@all_result_messages)
     end
 
