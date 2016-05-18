@@ -29,6 +29,7 @@ module Kapnismology
         message = "Smoke test #{self.class}, returned #{result_object.class} instead of a Result"
         result_object = Result.new(false, { returned_class: result_object.class }, message)
       end
+=begin
     rescue Kapnismology::SmokeTestFailed => e
       Rails.logger.info("[kapnismology] rescuying testfailed #{e.message} #{e.class}")
       result_object = e.result
@@ -42,6 +43,7 @@ module Kapnismology
     ensure
       Rails.logger.info("got result object #{result_object.to_s('aaaa')}")
       return result_object.add_extra_messages(@all_result_messages)
+=end
     end
 
     class << self
