@@ -12,26 +12,23 @@ module Kapnismology
     RUNTIME_TAG = 'runtime'.freeze
     DEFAULT_TAGS = [DEPLOYMENT_TAG, RUNTIME_TAG].freeze
 
-    # Default constructor may be overwritten by child class
-    def initialize
-      @all_result_messages = []
-    end
-
     def result
     end
 
     # Internally Kapnismology is calling this method. We are handling exceptions under the hood here
     def __result__
-      result_object = result || Result.new(false, {}, 'This test has not returned any result.')
-      unless result_object.class.ancestors.include?(Kapnismology::BaseResult)
+      execution = Timeout::timeout(self.class.timeout) { result }
+      result_object = execution || Result.new(false, {}, 'This test has not returned any result')
+      unless result_object.class.ancestors.include?(BaseResult)
         message = "Smoke test #{self.class}, returned #{result_object.class} instead of a Result"
         result_object = Result.new(false, { returned_class: result_object.class }, message)
       end
     rescue Kapnismology::SmokeTestFailed => e
       result_object = e.result
-    rescue SmokeTestFailed => e
-      result_object = e.result
-    rescue => e
+    rescue Timeout::Error => e
+      message = "#{self.class} took more than #{self.class.timeout} seconds to finish and timed-out"
+      result_object = Result.new(false, { exception: e.class, message: e.message }, message)
+    rescue Exception => e # Socket, IO errors inherit from Exception, not StandardError
       message = "Unrescued error happened in #{self.class}"
       result_object = Result.new(false, { exception: e.class, message: e.message }, message)
     ensure
@@ -45,6 +42,10 @@ module Kapnismology
 
       def tags
         DEFAULT_TAGS
+      end
+
+      def timeout
+        10
       end
     end
 

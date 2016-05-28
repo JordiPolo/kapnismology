@@ -1,3 +1,8 @@
+# 1.12
+* Added timeout functionality. Now smoke tests timeout after 10s by
+  default.
+* Rescue exceptions inheriting from Exception to rescue network errors
+
 # 1.11
 * Added a class NotApplicableResult for the cases when we really really
   do not want to show a result in the output

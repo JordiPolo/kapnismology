@@ -120,6 +120,20 @@ It will run all your integration tests. You can run it together with your runtim
  wget http://myservice.com/smoke_test?tags=integration,runtime
 ```
 
+## Timing out
+
+Smoke tests will by default time out after 10 seconds. If you need to change this value overwrite the `timeout` method your smoke test class and return a new number (seconds). Returning `0` will prevent the test from timing out.
+
+```Ruby
+class SuperSlowTest < Kapnismology::SmokeTest
+  def result
+  end
+  def self.timeout
+    30
+  end
+end
+```
+
 
 ## Skipping tests
 
