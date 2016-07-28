@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Kapnismology
   RSpec.describe EvaluationCollection do
-    let(:data) { [:berserk] }
+    let(:data) { { title: 'berserk' } }
     let(:passed) { true }
     let(:message) { '黄金時代' }
     let(:result) { Result.new(passed, data, message) }
@@ -22,8 +22,8 @@ module Kapnismology
         expect(evaluations.passed?).to eq(true)
       end
       it 'returns a json object' do
-        first  = { guts: { passed:true, data:["berserk"], message: "黄金時代", extra_messages:[]}}
-        second  = { gits: { passed:true, data:["berserk"], message: "黄金時代", extra_messages:[]}}
+        first  = { name: 'guts', passed:true, data:{ title: 'berserk' }, message: "黄金時代", debug_messages:[]}
+        second  = { name: 'gits', passed:true, data:{ title: 'berserk' }, message: "黄金時代", debug_messages:[]}
         expected = [first, second].to_json
         expect(evaluations.to_json).to eq(expected)
       end
@@ -41,8 +41,8 @@ module Kapnismology
         expect(evaluations.passed?).to eq(false)
       end
       it 'returns a json object' do
-        first  = { guts: { passed:false, data:["berserk"], message: "黄金時代", extra_messages:[]}}
-        second  = { gits: { passed:true, data:["berserk"], message: "黄金時代", extra_messages:[]}}
+        first  = { name: 'guts', passed:false, data:{ title: 'berserk' }, message: "黄金時代", debug_messages:[]}
+        second  = { name: 'gits', passed:true, data:{ title: 'berserk' }, message: "黄金時代", debug_messages:[]}
         expected = [first, second].to_json
         expect(evaluations.to_json).to eq(expected)
       end
@@ -59,9 +59,9 @@ module Kapnismology
       it '#passed? is true' do
         expect(evaluations.passed?).to eq(true)
       end
-      it 'returns a json object without passed data' do
-        first  = { guts: { passed:true, data:["berserk"], message: "黄金時代", extra_messages:[]}}
-        second  = { gits: { data:["berserk"], message: "黄金時代", extra_messages:[]}}
+      it 'returns a json object without data' do
+        first  = { name: 'guts', passed:true, data:{ title: 'berserk' }, message: "黄金時代", debug_messages:[]}
+        second  = { name: 'gits' }
         expected = [first, second].to_json
         expect(evaluations.to_json).to eq(expected)
       end

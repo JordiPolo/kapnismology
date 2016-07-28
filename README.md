@@ -5,13 +5,13 @@ Kapnismology 'the study of smoke', is a gem containing a Rails engine to easily 
 ## Installation
 
 In the Gemfile write:
-```
+```ruby
 gem 'kapnismology', '~> 1.7'
 ```
 
 In your config/routes write:
 
-```
+```ruby
   Kapnismology::Routes.insert!('/smoke_test')
 ```
 
@@ -19,11 +19,48 @@ In your config/routes write:
 
 Access the path '/smoke_test' to see the results of the smoke_test
 
+## Smoke test output format
+
+The output of the /smoke_test path is a Hypermedia document.
+
+Sample:
+
+```ruby
+{
+  "_links": {
+    "self": "https://www.example.org/smoke_test?tags=runtime",
+    "profile": "http://tbd.mdsol.com"
+  },
+  "passed": false,
+  "count": 2,
+  "trace_id": "d93abb9f-e0a2-467b-902f-b78069167e8f",
+  "items": [
+    {
+      "name": "database_smoke_test",
+      "passed": true,
+      "message": "The database is connected and responding correctly.",
+      "data": {
+          "database_name": "Polybus"
+      }
+    },
+    {
+      "name": "api_smoke_test",
+      "passed": false,
+      "message": "Api failed to respond correctly.",
+      "data": {
+         "exception": "name of exception class (StandardError, NoMethodError)",
+         "message": "exception message",
+         "stack": ["array of strings", "containing the backtrace","one string per backtrace entry"]
+      }
+    }
+  ]
+}
+```
 
 ## Adding more smoke tests
 
 Create a class like this:
-```
+```ruby
 class MySmokeTest < Kapnismology::SmokeTest
 
   def result
@@ -47,8 +84,8 @@ A test fails if it returns:
 
 Any class created this way will be called and its result will be merged with other results.
 In the example above the result of this class would be added to the results as:
-```
-{'MySmokeTest': { passed: true, data: { connection: 'good' }, message: 'Connected!' }}
+```ruby
+{ name: 'my_smoke_test', passed: true, data: { connection: 'good' }, message: 'Connected!' }
 ```
 
 ## Loading tests
@@ -74,23 +111,9 @@ end
 
 Will produce:
 ```ruby
-{'Database smoke test': { passed: true, data: { connection: 'good' }, message: 'Connected!' }}
+{ name: 'database smoke test', passed: true, data: { connection: 'good' }, message: 'Connected!' }
 
 ```
-
-## Not runnable tests
-
-If your check finds a situation when it does not make sense to test, you can return a `InfoResult` instead of a `Result`. Like:
-```ruby
-if (File.exist?('necessary file'))
-  Result.new(....)
-else
-  InfoResult.new({}, 'There is no need to run this test')
-end
-```
-
-Be very careful of not returning InfoResult when you should be returning a failing Result.
-
 
 ## Tagging and running tags
 
@@ -147,7 +170,7 @@ For instance:
 
 Hopefully Kapnismology is flexible enough so you can code your smoke test as you prefer, our recommended style is this:
 
-```
+```ruby
 def result
   user = user_from_remote
   puts_to_result('User successfully retrieved')
@@ -178,7 +201,7 @@ You can pass your own data to SmokeTestFailed or you can pass an exception which
 
 There is a Kapnismology::SpecHelper which can be useful when running your tests.
 Usage:
-```
+```ruby
   RSpec.describe DatabaseSmokeTest do
     let(:result) { Kapnismology::SpecHelper.result_for(described_class.new) }
   ...

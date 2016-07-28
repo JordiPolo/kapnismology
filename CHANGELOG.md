@@ -1,3 +1,7 @@
+# 2.0
+* Changed the output of the /smoke_test path to support new format
+* Removed InfoResult class
+
 # 1.12
 * Added timeout functionality. Now smoke tests timeout after 10s by
   default.

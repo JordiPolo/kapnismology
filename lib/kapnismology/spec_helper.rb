@@ -2,13 +2,13 @@ require 'kapnismology/result'
 
 module Kapnismology
   class RSpecResult < BaseResult
-    attr_reader :data, :message, :extra_messages # Deprecated but many users test on these properties
+    attr_reader :data, :message, :debug_messages
     def initialize(result)
       hash = result.to_hash
       @data = hash[:data]
       @message = hash[:message]
       @passed = hash[:passed]
-      @extra_messages = hash[:extra_messages]
+      @debug_messages = hash[:debug_messages]
     end
   end
 

@@ -3,12 +3,12 @@ require 'spec_helper'
 RSpec.describe Kapnismology::SmokeTest do
   let(:smoke_test) { described_class.new }
 
-  def expect_failed(data, message, extra_messages=[])
+  def expect_failed(data, message, debug_messages=[])
     result = smoke_test.__result__
     expect(result.passed?).to eq(false)
     expect(result.data).to eq(data)
     expect(result.message).to eq(message)
-    expect(result.extra_messages).to eq(extra_messages)
+    expect(result.debug_messages).to eq(debug_messages)
   end
 
   it 'has default tags' do
@@ -22,7 +22,7 @@ RSpec.describe Kapnismology::SmokeTest do
   it 'adds arbitrary extra messages to output' do
     smoke_test.send(:puts_to_result, 'This is')
     smoke_test.send(:puts_to_result, 'that was')
-    expect(smoke_test.__result__.to_hash[:extra_messages]).to eq(['This is', 'that was'])
+    expect(smoke_test.__result__.to_hash[:debug_messages]).to eq(['This is', 'that was'])
   end
 
   context 'smoke test returns an empty result' do

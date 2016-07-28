@@ -3,21 +3,21 @@ module Kapnismology
   # It is useful to be able to test if the object is of a correct result type.
   # It also have methods to add information and serialize it.
   class BaseResult
-    attr_reader :data, :message, :extra_messages # Deprecated but many users test on these properties
+    attr_reader :data, :message, :debug_messages
     def to_hash
-      { passed: passed?, data: @data, message: @message, extra_messages: @extra_messages }
+      { passed: passed?, data: @data, message: @message, debug_messages: @debug_messages }
     end
 
     def to_s(name)
       <<-eos
 #{format_passed(passed?)}: #{name}
-#{format_extra_messages(@extra_messages)}#{Terminal.bold(@message)}
+#{format_debug_messages(@debug_messages)}#{Terminal.bold(@message)}
    #{@data}
 eos
     end
 
-    def add_extra_messages(messages)
-      @extra_messages = (messages || []).compact.flatten
+    def add_debug_messages(messages)
+      @debug_messages = (messages || []).compact.flatten
       self
     end
 
@@ -27,11 +27,11 @@ eos
 
     private
 
-    def format_extra_messages(extra_messages)
-      if extra_messages.empty?
+    def format_debug_messages(debug_messages)
+      if debug_messages.empty?
         ''
       else
-        extra_messages.join("\n") + "\n"
+        debug_messages.join("\n") + "\n"
       end
     end
 
@@ -52,23 +52,29 @@ eos
       @passed = passed
       @data = data
       @message = message
-      @extra_messages = []
+      @debug_messages = []
     end
   end
 
-  # This class can be returned when a check do not want to assert if it passed or not.
-  # Instead it can return certain information about the check or the system.
-  class InfoResult < BaseResult
+  # Deprecated NullResult class provided for compatibility.
+  class NullResult < BaseResult
     def initialize(data, message = 'The result could not be determined')
       @passed = true
       @data = data
       @message = message
-      @extra_messages = []
+      @debug_messages = []
     end
 
-    # Redefining to have our own unique output
+    def to_s(name)
+      <<-eos
+#{Terminal.yellow('This test can not be run. Skipping...')}
+#{super(name).chomp}
+eos
+    end
+
+    # Nullresult does not output any data.
     def to_hash
-      { data: @data, message: @message, extra_messages: @extra_messages }
+      {}
     end
 
     private
@@ -76,10 +82,6 @@ eos
     def format_passed(_passed)
       Terminal.yellow('Skipped')
     end
-  end
-
-  # Deprecated NullResult class provided for compatibility.
-  class NullResult < InfoResult
   end
 
   class NotApplicableResult < BaseResult
@@ -92,7 +94,7 @@ eos
       @passed = true
       @data = data
       @message = message
-      @extra_messages = []
+      @debug_messages = []
     end
   end
 end

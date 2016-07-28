@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Kapnismology::Result do
-  let(:data) { [:berserk] }
+  let(:data) { { title: 'berserk' } }
   let(:passed) { true }
   let(:message) { '黄金時代' }
   let(:name) { 'Kentaro Miura' }
@@ -11,12 +11,12 @@ RSpec.describe Kapnismology::Result do
   shared_examples_for 'serializes its data' do
     it 'creates a string with its data' do
       first = "\e[#{terminal_color}m\e[1m#{title}\e[0m: #{name}"
-      expected = "#{first}\n#{extra_messages.join("\n")}#{extra_char}\e[1m#{message}\e[0m\n   #{data}\n"
+      expected = "#{first}\n#{debug_messages.join("\n")}#{extra_char}\e[1m#{message}\e[0m\n   #{data}\n"
       expect(result.to_s(name)).to eq(expected)
     end
 
     it 'creates a hash with its data' do
-      expected = { passed: passed, data: data, message: message, extra_messages: extra_messages }
+      expected = { passed: passed, data: data, message: message, debug_messages: debug_messages }
       expect(result.to_hash).to eq(expected)
     end
   end
@@ -36,16 +36,16 @@ RSpec.describe Kapnismology::Result do
       let(:terminal_color) { '32' }
 
       context 'no extra messages added' do
-        let(:extra_messages) { [] }
+        let(:debug_messages) { [] }
         it_behaves_like 'serializes its data'
       end
 
       context 'added some extra messages' do
-        let(:extra_messages) { %w(42 41) }
+        let(:debug_messages) { %w(42 41) }
         let(:extra_char) { "\n" }
 
         before do
-          result.add_extra_messages(%w(42 41))
+          result.add_debug_messages(%w(42 41))
         end
         it_behaves_like 'serializes its data'
       end
@@ -57,16 +57,16 @@ RSpec.describe Kapnismology::Result do
       let(:terminal_color) { '31' }
 
       context 'no extra messages added' do
-        let(:extra_messages) { [] }
+        let(:debug_messages) { [] }
         it_behaves_like 'serializes its data'
       end
 
       context 'added some extra messages' do
-        let(:extra_messages) { %w(42 41) }
+        let(:debug_messages) { %w(42 41) }
         let(:extra_char) { "\n" }
 
         before do
-          result.add_extra_messages(%w(42 41))
+          result.add_debug_messages(%w(42 41))
         end
         it_behaves_like 'serializes its data'
       end
@@ -77,7 +77,7 @@ end
 
 
 RSpec.describe Kapnismology::Success do
-  let(:data) { [:berserk] }
+  let(:data) { { title: 'berserk' } }
   let(:passed) { true }
   let(:message) { '黄金時代' }
   let(:name) { 'Kentaro Miura' }
@@ -91,30 +91,28 @@ RSpec.describe Kapnismology::Success do
 end
 
 
-RSpec.describe Kapnismology::InfoResult do
+RSpec.describe Kapnismology::NullResult do
   let(:data) { { version: 'newest' } }
   let(:message) { 'This check just provides info about the version' }
   let(:name) { 'Skynet' }
 
-  [Kapnismology::InfoResult, Kapnismology::NullResult].each do |info_class|
-    let(:result) { info_class.new(data, message) }
+  let(:result) { described_class.new(data, message) }
 
-    it "#{info_class} creates a result which has passed the test" do
-      expect(result.passed?).to eq(true)
-      expect(result.data).to eq(data)
-      expect(result.message).to eq(message)
-    end
+  it "#{described_class} creates a result which has passed the test" do
+    expect(result.passed?).to eq(true)
+    expect(result.data).to eq(data)
+    expect(result.message).to eq(message)
+  end
 
-    it "#{info_class}#to_hash creates a hash with data, message and extra messages" do
-      hash = result.to_hash
-      expect(hash).to eq(data: data, message: message, extra_messages: [])
-    end
+  it "#{described_class}#to_hash returns nil" do
+    hash = result.to_hash
+    expect(hash).to eq({})
+  end
 
-    it "#{info_class}#to_s shows a skipped check" do
-      first = "\e[33m\e[1mSkipped\e[0m: #{name}"
-      expected = "#{first}\n#{[].join("\n")}\e[1m#{message}\e[0m\n   #{data}\n"
-      expect(result.to_s(name)).to eq(expected)
-    end
+  it "#{described_class}#to_s shows a skipped check" do
+    first = "\e[33m\e[1mThis test can not be run. Skipping...\e[0m\n\e[33m\e[1mSkipped\e[0m: #{name}"
+    expected = "#{first}\n#{[].join("\n")}\e[1m#{message}\e[0m\n   #{data}\n"
+    expect(result.to_s(name)).to eq(expected)
   end
 
 end
