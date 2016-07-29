@@ -32,7 +32,7 @@ module Kapnismology
       message = "Unrescued error happened in #{self.class}"
       result_object = Result.new(false, { exception: e.class, message: e.message }, message)
     ensure
-      return result_object.add_extra_messages(@all_result_messages)
+      return result_object.add_debug_messages(@all_result_messages)
     end
 
     class << self
@@ -58,8 +58,6 @@ module Kapnismology
 
     # These classes makes it very simple to implementors of results to use them without the module name
     class Result < Kapnismology::Result
-    end
-    class InfoResult < Kapnismology::InfoResult
     end
     class NullResult < Kapnismology::NullResult
     end
