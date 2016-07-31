@@ -1,3 +1,6 @@
+# 2.0.1
+* Raise ArgumentError when data is not a hash
+
 # 2.0
 * Changed the output of the /smoke_test path to support new format
 * Removed InfoResult class
