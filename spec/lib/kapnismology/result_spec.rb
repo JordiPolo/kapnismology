@@ -26,6 +26,11 @@ RSpec.describe Kapnismology::Result do
       .to raise_error(ArgumentError, 'passed argument must be true or false')
   end
 
+  it 'only allows hash as data parameter' do
+    expect { described_class.new(passed, [data], message) }
+      .to raise_error(ArgumentError, 'data argument must be a hash')
+  end
+
   it 'provides access to passed status' do
     expect(result.passed?).to eq(passed)
   end
@@ -87,6 +92,11 @@ RSpec.describe Kapnismology::Success do
     expect(result.passed?).to eq(true)
     expect(result.data).to eq(data)
     expect(result.message).to eq(message)
+  end
+
+  it 'only allows hash as data parameter' do
+    expect { described_class.new([data], message) }
+      .to raise_error(ArgumentError, 'data argument must be a hash')
   end
 end
 

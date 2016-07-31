@@ -44,11 +44,12 @@ eos
   # This class makes sense to enforce smoke test to return something known
   # Params of the constructor:
   # * passed : Boolean: true -> test passed, false -> test failed
-  # * data   : Typically Array or Hash representing the result of the test
+  # * data   : Hash representing the result of the test
   # * message: String with an extra message to provide human readable information
   class Result < BaseResult
     def initialize(passed, data, message)
       raise ArgumentError, 'passed argument must be true or false' unless !!passed == passed
+      raise ArgumentError, 'data argument must be a hash' unless data.is_a?(Hash)
       @passed = passed
       @data = data
       @message = message
@@ -91,6 +92,7 @@ eos
   # For instance when you have a test for deployments that have not happen, etc.
   class Success < BaseResult
     def initialize(data, message)
+      raise ArgumentError, 'data argument must be a hash' unless data.is_a?(Hash)
       @passed = true
       @data = data
       @message = message

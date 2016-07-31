@@ -62,7 +62,7 @@ RSpec.describe Kapnismology::SmokeTest do
   end
 
   context 'smoke test raises Kapnismology::SmokeTestFailed' do
-    let(:exception_data) { 4 }
+    let(:exception_data) { { data: 4 } }
     let(:exception_message) { 'Smoke test failed big time' }
     before do
       exception = Kapnismology::SmokeTestFailed.new(exception_data, exception_message)
@@ -74,7 +74,7 @@ RSpec.describe Kapnismology::SmokeTest do
   end
 
   context 'smoke test raises Kapnismology::SmokeTest::SmokeTestFailed' do
-    let(:exception_data) { 4 }
+    let(:exception_data) { { data: 4 } }
     let(:exception_message) { 'Smoke test failed big time' }
     before do
       exception = Kapnismology::SmokeTest::SmokeTestFailed.new(exception_data, exception_message)
