@@ -7,10 +7,16 @@ rvm:
   - 2.2.4
   - 2.3.0
 
+matrix:
+  exclude:
+    - rvm: 2.1.2
+      gemfile: gemfiles/rails_50.gemfile
+
 gemfile:
   - gemfiles/rails_32.gemfile
   - gemfiles/rails_40.gemfile
   - gemfiles/rails_41.gemfile
   - gemfiles/rails_42.gemfile
+  - gemfiles/rails_50.gemfile
 
 script: bundle exec rspec
