@@ -1,3 +1,6 @@
+# 2.0.2
+* Make sure the internal @all\_result\_messages array is initialized
+
 # 2.0.1
 * Raise ArgumentError when data is not a hash
 

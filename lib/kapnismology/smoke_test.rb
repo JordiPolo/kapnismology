@@ -32,6 +32,7 @@ module Kapnismology
       message = "Unrescued error happened in #{self.class}"
       result_object = Result.new(false, { exception: e.class, message: e.message }, message)
     ensure
+      @all_result_messages ||= []
       return result_object.add_debug_messages(@all_result_messages)
     end
 
