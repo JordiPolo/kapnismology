@@ -1,20 +1,25 @@
 module Kapnismology
   class Terminal
-
     def self.green(msg)
-      "\e[32m\e[1m#{msg}\e[0m"
+      colorize(msg, "\e[32m")
     end
 
     def self.red(msg)
-      "\e[31m\e[1m#{msg}\e[0m"
+      colorize(msg, "\e[31m")
     end
 
     def self.yellow(msg)
-      "\e[33m\e[1m#{msg}\e[0m"
+      colorize(msg, "\e[33m")
     end
 
     def self.bold(msg)
-      "\e[1m#{msg}\e[0m"
+      colorize(msg, '')
+    end
+
+    private
+    def self.colorize(msg, color_code)
+      # \e[1m adds bold font, \e[0m resets all styles
+      $stdout.isatty ? "#{color_code}\e[1m#{msg}\e[0m" : msg
     end
   end
 end
