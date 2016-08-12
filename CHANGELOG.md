@@ -1,3 +1,6 @@
+# 2.0.3
+* Coloring output only on interactive terminals
+
 # 2.0.2
 * Make sure the internal @all\_result\_messages array is initialized
 
