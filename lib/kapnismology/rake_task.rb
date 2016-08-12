@@ -2,6 +2,7 @@ require 'kapnismology/terminal'
 module Kapnismology
   class RakeTask
     def output(allowed_tags = [SmokeTest::RUNTIME_TAG], blacklist = [])
+      puts  "Running smoke test for codebase revision #{ApplicationInformation.new.codebase_revision}"
       evaluations = SmokeTestCollection.evaluations(allowed_tags, blacklist)
       puts
       puts

@@ -1,3 +1,6 @@
+# 2.1.0
+* Output has codebase revision information
+
 # 2.0.3
 * Coloring output only on interactive terminals
 
