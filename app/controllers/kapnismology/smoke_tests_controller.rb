@@ -36,9 +36,11 @@ module Kapnismology
         },
         passed: evaluations.passed?,
         count: items.size,
-        trace_id: Object.const_defined?(:Trace) ? Trace.id.trace_id.to_s : nil,
+        trace_id: ApplicationInformation.new.trace_id,
+        codebase_revision: ApplicationInformation.new.codebase_revision,
         items: items
       }
     end
   end
+
 end

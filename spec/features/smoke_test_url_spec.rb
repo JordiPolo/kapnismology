@@ -8,6 +8,7 @@ module Kapnismology
     let(:result) { Result.new(passed, data, message) }
     let(:name) { 'guts' }
     let(:trace_id) { '74bf7dd481bcc880' }
+    let(:codebase_revision) { '781aab' }
     let(:count) { 1 }
     let(:links) { {
         self: "http://www.example.com/smoke_test#{parameters}",
@@ -32,16 +33,17 @@ module Kapnismology
           passed: passed,
           count: count,
           trace_id: trace_id,
+          codebase_revision: codebase_revision,
           items: items
         }.to_json
         expect(page).to have_text(expected)
       end
     end
 
-    context 'with Trace' do
+    context 'with all the information' do
       before do
-        stub_const("Trace", double)
-        allow(Trace).to receive_message_chain(:id, :trace_id).and_return(trace_id)
+        allow_any_instance_of(ApplicationInformation).to receive(:trace_id).and_return(trace_id)
+        allow_any_instance_of(ApplicationInformation).to receive(:codebase_revision).and_return(codebase_revision)
       end
 
       context 'without parameters' do
@@ -70,10 +72,5 @@ module Kapnismology
       end
     end
 
-    context 'without Trace' do
-      let(:trace_id) { nil }
-      let(:parameters) { '' }
-      it_behaves_like 'Access the smoke_test URL'
-    end
   end
 end
