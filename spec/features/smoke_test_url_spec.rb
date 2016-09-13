@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Kapnismology
-  RSpec.feature 'Access to the smoke test API', type: :feature do
+  RSpec.feature 'Access to the smoke test API' do
     let(:data) { { title: 'berserk' } }
     let(:passed) { true }
     let(:message) { '黄金時代' }
@@ -40,7 +40,7 @@ module Kapnismology
       end
     end
 
-    context 'with all the information' do
+    context 'with all the information', :requires_rails do
       before do
         allow_any_instance_of(ApplicationInformation).to receive(:trace_id).and_return(trace_id)
         allow_any_instance_of(ApplicationInformation).to receive(:codebase_revision).and_return(codebase_revision)

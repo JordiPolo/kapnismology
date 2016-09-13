@@ -210,6 +210,18 @@ Usage:
 
 `result` will be processed so you do not need to deal with the internals of Kapnismology but just check the properties of a Result object
 
+## Unit Tests
+
+Run the Kapnismology unit tests with the command:
+```
+bundle exec rspec
+```
+
+To verify that Kapnismology also runs properly in non-Rails applications, run the following:
+```
+NO_RAILS=1 bundle exec rspec
+```
+
 ## TODO
 
 - Automount routes

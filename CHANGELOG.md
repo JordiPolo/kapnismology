@@ -1,3 +1,7 @@
+# 2.2.0
+* Only load Kapnismology engine when Rails is defined
+* Support running unit tests without Rails with `NO_RAILS=1 bundle exec rspec`
+
 # 2.1.0
 * Output has codebase revision information
 
@@ -15,13 +19,11 @@
 * Removed InfoResult class
 
 # 1.12
-* Added timeout functionality. Now smoke tests timeout after 10s by
-  default.
+* Added timeout functionality. Now smoke tests timeout after 10s by default.
 * Rescue exceptions inheriting from Exception to rescue network errors
 
 # 1.11
-* Added a class NotApplicableResult for the cases when we really really
-  do not want to show a result in the output
+* Added a class NotApplicableResult for the cases when we really really do not want to show a result in the output
 
 # 1.10
 * Added a class InfoResult to substitute NullResult (which is deprecated now)
@@ -31,8 +33,7 @@
 * SmokeTestFailed accepts an exception as parameter
 
 # 1.8.2
-* Allow to see message, data and extra_messages to make for painless
-  testing
+* Allow to see message, data and extra_messages to make for painless testing
 
 # 1.8.1
 * Allow to raise SmokeTestFailed from outside smoketest classes
@@ -68,11 +69,9 @@
 * Allows to provide a "skip" parameted to the url to skip certain smoke tests
 
 # 1.0.0
-* Output uses "data" to indicate data, the test name is the key of the
-  hash.
+* Output uses "data" to indicate data, the test name is the key of the hash.
 * Order of parameters in the Result API has changed to make more sense.
-* Classes do not need to specify their name. They still can but it is
-  optional
+* Classes do not need to specify their name. They still can but it is optional
 
 # 0.1.2
 * Add tests for rails 3.2, 4.0, 4.1, 4.2

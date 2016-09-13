@@ -19,4 +19,6 @@ gemfile:
   - gemfiles/rails_42.gemfile
   - gemfiles/rails_50.gemfile
 
-script: bundle exec rspec
+script:
+  - NO_RAILS=1 bundle exec rspec
+  - bundle exec rspec
