@@ -20,7 +20,7 @@ module Kapnismology
     end
 
     def to_json
-      evaluations.to_json
+      evaluations.map { |evaluation| evaluation.as_json }.to_json
     end
 
     private

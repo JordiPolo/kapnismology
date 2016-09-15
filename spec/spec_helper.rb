@@ -4,9 +4,10 @@ require 'byebug'
 
 require 'capybara/rspec'
 
-Combustion.initialize! :all
-
-require 'capybara/rails'
+unless ENV['NO_RAILS']
+  Combustion.initialize! :all
+  require 'capybara/rails'
+end
 
 require 'kapnismology'
 require File.expand_path('../support/fake_smoketest', __FILE__)
@@ -24,6 +25,10 @@ RSpec.configure do |config|
   end
 
   config.disable_monkey_patching!
+
+  if ENV['NO_RAILS']
+    config.filter_run_excluding :requires_rails
+  end
 
   config.run_all_when_everything_filtered = true
 

@@ -13,9 +13,9 @@ module Kapnismology
     end
     let(:evaluation) { Evaluation.new(TestSmokeTest) }
 
-    it 'creates a json representation' do
-      expected = '{"name":"test_smoke_test","passed":true,"data":{"title":"berserk"},"message":"黄金時代","debug_messages":[]}'
-      expect(evaluation.to_json).to eq(expected)
+    it 'creates a hash that can be converted to a JSON representation' do
+      expected = { name: 'test_smoke_test', passed: true, data: { title: 'berserk' }, message: "黄金時代", debug_messages: [] }
+      expect(evaluation.as_json).to eq(expected)
     end
 
     it 'knows if the test passed' do
