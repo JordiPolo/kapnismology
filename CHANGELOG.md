@@ -1,3 +1,6 @@
+# 2.2.1
+* Expose the `status` and `render` methods in SmokeTestResponse, so clients can call them directly
+
 # 2.2.0
 * Only load Kapnismology engine when Rails is defined
 * Support running unit tests without Rails with `NO_RAILS=1 bundle exec rspec`

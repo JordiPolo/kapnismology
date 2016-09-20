@@ -1,5 +1,6 @@
 require 'combustion'
 require 'rspec'
+require 'rspec/json_expectations'
 require 'byebug'
 
 require 'capybara/rspec'
