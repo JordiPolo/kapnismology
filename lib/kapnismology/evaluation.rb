@@ -14,7 +14,7 @@ module Kapnismology
       @result.passed?
     end
 
-    def as_json(_options = nil)
+    def to_hash(_options = nil)
       { name: @name.underscore }.merge(@result.to_hash)
     end
 

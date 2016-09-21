@@ -19,8 +19,8 @@ module Kapnismology
       evaluations.all?(&:passed?)
     end
 
-    def to_json
-      evaluations.map { |evaluation| evaluation.as_json }.to_json
+    def to_hash
+      evaluations.map(&:to_hash)
     end
 
     private

@@ -18,14 +18,16 @@ module Kapnismology
         FakeSmokeTest2.name = name2
         FakeSmokeTest2.result = result
       end
+
       it '#passed? is true' do
         expect(evaluations.passed?).to eq(true)
       end
-      it 'returns a json object' do
+
+      it 'returns a hash representation' do
         first  = { name: 'guts', passed: true, data: { title: 'berserk' }, message: "黄金時代", debug_messages: [] }
         second  = { name: 'gits', passed: true, data: { title: 'berserk' }, message: "黄金時代", debug_messages: [] }
-        expected = [first, second].to_json
-        expect(evaluations.to_json).to eq(expected)
+        expected = [first, second]
+        expect(evaluations.to_hash).to eq(expected)
       end
     end
 
@@ -37,14 +39,16 @@ module Kapnismology
         FakeSmokeTest2.name = name2
         FakeSmokeTest2.result = result
       end
+
       it '#passed? is false' do
         expect(evaluations.passed?).to eq(false)
       end
-      it 'returns a json object' do
+
+      it 'returns a hash representation' do
         first  = { name: 'guts', passed: false, data: { title: 'berserk' }, message: "黄金時代", debug_messages: [] }
         second  = { name: 'gits', passed: true, data: { title: 'berserk' }, message: "黄金時代", debug_messages: [] }
-        expected = [first, second].to_json
-        expect(evaluations.to_json).to eq(expected)
+        expected = [first, second]
+        expect(evaluations.to_hash).to eq(expected)
       end
     end
 
@@ -56,14 +60,16 @@ module Kapnismology
         FakeSmokeTest2.name = name2
         FakeSmokeTest2.result = null_result
       end
+
       it '#passed? is true' do
         expect(evaluations.passed?).to eq(true)
       end
-      it 'returns a json object without data' do
+
+      it 'returns a hash representation' do
         first  = { name: 'guts', passed: true, data: { title: 'berserk' }, message: "黄金時代", debug_messages: [] }
         second  = { name: 'gits' }
-        expected = [first, second].to_json
-        expect(evaluations.to_json).to eq(expected)
+        expected = [first, second]
+        expect(evaluations.to_hash).to eq(expected)
       end
     end
   end
