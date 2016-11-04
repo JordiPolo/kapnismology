@@ -11,6 +11,7 @@ unless ENV['NO_RAILS']
 end
 
 require 'kapnismology'
+require 'timecop'
 require File.expand_path('../support/fake_smoketest', __FILE__)
 
 RSpec.configure do |config|
@@ -40,4 +41,6 @@ RSpec.configure do |config|
   config.order = :random
 
   Kernel.srand config.seed
+
+  config.after { Timecop.return }
 end

@@ -17,6 +17,7 @@ module Kapnismology
 
     # Internally Kapnismology is calling this method. We are handling exceptions under the hood here
     def __result__
+      start_time = Time.now
       execution = Timeout::timeout(self.class.timeout) { result }
       result_object = execution || Result.new(false, {}, 'This test has not returned any result')
       unless result_object.class.ancestors.include?(BaseResult)
@@ -33,6 +34,7 @@ module Kapnismology
       result_object = Result.new(false, { exception: e.class, message: e.message }, message)
     ensure
       @all_result_messages ||= []
+      result_object.record_duration(start_time)
       return result_object.add_debug_messages(@all_result_messages)
     end
 
