@@ -1,3 +1,6 @@
+# 2.3.0
+* Measure the duration of each smoke test
+
 # 2.2.1
 * Expose the `status` and `render` methods in SmokeTestResponse, so clients can call them directly
 

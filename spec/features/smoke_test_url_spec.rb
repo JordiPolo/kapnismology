@@ -34,6 +34,7 @@ module Kapnismology
           count: count,
           trace_id: trace_id,
           codebase_revision: codebase_revision,
+          duration: 0,
           items: items
         }.to_json
         expect(page).to have_text(expected)

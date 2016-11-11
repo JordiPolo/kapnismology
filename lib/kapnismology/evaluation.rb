@@ -22,5 +22,9 @@ module Kapnismology
       @result.to_s(@name)
     end
 
+    def duration
+      @result.duration
+    end
+
   end
 end

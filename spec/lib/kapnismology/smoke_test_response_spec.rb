@@ -14,6 +14,10 @@ module Kapnismology
     let(:profile_url) { 'http://tbd.mdsol.com' }
     let(:name2) { 'gits' }
 
+    before do
+      allow_any_instance_of(Result).to receive(:duration).and_return(123)
+    end
+
     context 'all evaluations passed' do
       let(:first) { { name: 'guts', passed: true, data: { title: 'berserk' }, message: "黄金時代", debug_messages: [] } }
       let(:second) { { name: 'gits', passed: true, data: { title: 'berserk' }, message: "黄金時代", debug_messages: [] } }
@@ -28,11 +32,12 @@ module Kapnismology
         expect(run.status).to eq(200)
       end
 
-      it '#render includes the smoke test count and items, links and passed status' do
+      it '#render includes the smoke test count and items, links, duration and passed status' do
         expect(run.render(request_url)).to include_json(
           _links: { self: request_url, profile: profile_url },
           passed: true,
           count: 2,
+          duration: 246,
           items: [first, second]
         )
       end
@@ -53,11 +58,12 @@ module Kapnismology
         expect(run.status).to eq(503)
       end
 
-      it '#render includes the smoke test count and items, links and passed status' do
+      it '#render includes the smoke test count and items, links, duration and passed status' do
         expect(run.render(request_url)).to include_json(
           _links: { self: request_url, profile: profile_url },
           passed: false,
           count: 2,
+          duration: 246,
           items: [first, second]
         )
       end
@@ -78,11 +84,12 @@ module Kapnismology
         expect(run.status).to eq(200)
       end
 
-      it '#render includes the smoke test count and items, links and passed status' do
+      it '#render includes the smoke test count and items, links, duration and passed status' do
         expect(run.render(request_url)).to include_json(
           _links: { self: request_url, profile: profile_url },
           passed: true,
           count: 1,
+          duration: 123,
           items: [first]
         )
       end

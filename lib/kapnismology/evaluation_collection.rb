@@ -23,6 +23,10 @@ module Kapnismology
       evaluations.map(&:to_hash)
     end
 
+    def total_duration
+      evaluations.inject(0) { |total, member| total += member.duration.to_i }
+    end
+
     private
 
     def evaluations

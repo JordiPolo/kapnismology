@@ -27,4 +27,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'combustion', '~> 0.5.3'
   s.add_development_dependency 'sqlite3', '~> 1.3'
   s.add_development_dependency 'capybara'
+  s.add_development_dependency 'timecop', '~> 0.7'
 end

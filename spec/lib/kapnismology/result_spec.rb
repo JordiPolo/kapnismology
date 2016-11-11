@@ -10,13 +10,13 @@ RSpec.describe Kapnismology::Result do
 
   shared_examples_for 'serializes its data' do
     it 'creates a string with its data' do
-      first = "\e[#{terminal_color}m\e[1m#{title}\e[0m: #{name}"
+      first = "\e[#{terminal_color}m\e[1m#{title}\e[0m: #{name}\nduration: \e[1m0\e[0m ms"
       expected = "#{first}\n#{debug_messages.join("\n")}#{extra_char}\e[1m#{message}\e[0m\n   #{data}\n"
       expect(result.to_s(name)).to eq(expected)
     end
 
     it 'creates a hash with its data' do
-      expected = { passed: passed, data: data, message: message, debug_messages: debug_messages }
+      expected = { passed: passed, data: data, message: message, debug_messages: debug_messages, duration: 0 }
       expect(result.to_hash).to eq(expected)
     end
   end
@@ -33,6 +33,17 @@ RSpec.describe Kapnismology::Result do
 
   it 'provides access to passed status' do
     expect(result.passed?).to eq(passed)
+  end
+
+  describe 'record_duration' do
+    before do
+      Timecop.freeze
+    end
+
+    it 'records duration of the test' do
+      result.record_duration(Time.now - 1)
+      expect(result.duration).to eq(1000)
+    end
   end
 
   describe 'output' do
@@ -120,7 +131,7 @@ RSpec.describe Kapnismology::NullResult do
   end
 
   it "#{described_class}#to_s shows a skipped check" do
-    first = "\e[33m\e[1mThis test can not be run. Skipping...\e[0m\n\e[33m\e[1mSkipped\e[0m: #{name}"
+    first = "\e[33m\e[1mThis test can not be run. Skipping...\e[0m\n\e[33m\e[1mSkipped\e[0m: #{name}\nduration: \e[1m0\e[0m ms"
     expected = "#{first}\n#{[].join("\n")}\e[1m#{message}\e[0m\n   #{data}\n"
     expect(result.to_s(name)).to eq(expected)
   end

@@ -3,15 +3,15 @@ module Kapnismology
   # It is useful to be able to test if the object is of a correct result type.
   # It also have methods to add information and serialize it.
   class BaseResult
-    attr_reader :data, :message, :debug_messages
+    attr_reader :data, :message, :debug_messages, :duration
     def to_hash
-      { passed: passed?, data: @data, message: @message, debug_messages: @debug_messages }
+      { passed: passed?, data: @data, message: @message, debug_messages: @debug_messages, duration: @duration }
     end
 
     def to_s(name)
       <<-eos
 #{format_passed(passed?)}: #{name}
-#{format_debug_messages(@debug_messages)}#{Terminal.bold(@message)}
+#{format_duration(@duration)}#{format_debug_messages(@debug_messages)}#{Terminal.bold(@message)}
    #{@data}
 eos
     end
@@ -23,6 +23,10 @@ eos
 
     def passed?
       !!@passed
+    end
+
+    def record_duration(start_time)
+      @duration = ((Time.now - start_time) * 1000).floor
     end
 
     private
@@ -37,6 +41,10 @@ eos
 
     def format_passed(passed)
       passed ? Terminal.green('passed') : Terminal.red('failed')
+    end
+
+    def format_duration(duration)
+      "duration: #{Terminal.bold(duration)} ms\n"
     end
   end
 
@@ -54,6 +62,7 @@ eos
       @data = data
       @message = message
       @debug_messages = []
+      @duration = 0
     end
   end
 
@@ -64,6 +73,7 @@ eos
       @data = data
       @message = message
       @debug_messages = []
+      @duration = 0
     end
 
     def to_s(name)
@@ -97,6 +107,7 @@ eos
       @data = data
       @message = message
       @debug_messages = []
+      @duration = 0
     end
   end
 end
