@@ -1,3 +1,6 @@
+# 2.3.1
+* The gem depends on Ruby 2.1 or superior.
+
 # 2.3.0
 * Measure the duration of each smoke test
 

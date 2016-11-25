@@ -3,13 +3,13 @@ cache: bundler
 sudo: false
 
 rvm:
-  - 2.1.2
+  - 2.1.8
   - 2.2.4
   - 2.3.0
 
 matrix:
   exclude:
-    - rvm: 2.1.2
+    - rvm: 2.1.8
       gemfile: gemfiles/rails_50.gemfile
 
 gemfile:
