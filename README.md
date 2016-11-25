@@ -1,12 +1,17 @@
 # Kapnismology
 
+[![Build
+Status](https://travis-ci.org/JordiPolo/kapnismology.svg?branch=master)](https://travis-ci.org/JordiPolo/kapnismology)
+[![Code
+Climate](https://codeclimate.com/github/JordiPolo/kapnismology/badges/gpa.svg)](https://codeclimate.com/github/JordiPolo/kapnismology)
+
 Kapnismology 'the study of smoke', is a gem containing a Rails engine to easily create smoke tests.
 
 ## Installation
 
 In the Gemfile write:
 ```ruby
-gem 'kapnismology', '~> 1.7'
+gem 'kapnismology', '~> 2.3'
 ```
 
 In your config/routes write:
@@ -225,4 +230,3 @@ NO_RAILS=1 bundle exec rspec
 ## TODO
 
 - Automount routes
-- Hypermedia output
