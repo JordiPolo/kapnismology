@@ -16,6 +16,8 @@ module Kapnismology
     } }
     let(:items) { [ { name: name }.merge(result.to_hash) ] }
     before do
+      Timecop.freeze
+      
       FakeSmokeTest.name = name
       FakeSmokeTest.result = result
       FakeSmokeTest.tags = ['runtime']

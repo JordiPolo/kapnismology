@@ -33,11 +33,11 @@ RSpec.describe Kapnismology::SmokeTest do
 
   context 'smoke test returns a class that is not a result' do
     before do
-      allow(smoke_test).to receive(:result).and_return(3)
+      allow(smoke_test).to receive(:result).and_return('pass')
     end
     it 'reports a failed result' do
-      message = 'Smoke test Kapnismology::SmokeTest, returned Fixnum instead of a Result'
-      expect_failed({ returned_class: Fixnum }, message)
+      message = 'Smoke test Kapnismology::SmokeTest, returned String instead of a Result'
+      expect_failed({ returned_class: String }, message)
     end
   end
 

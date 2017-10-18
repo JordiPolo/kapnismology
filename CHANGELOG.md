@@ -1,3 +1,6 @@
+# 2.3.2
+* Require 'timeout' in SmokeTest class
+
 # 2.3.1
 * The gem depends on Ruby 2.1 or superior.
 

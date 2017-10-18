@@ -1,3 +1,4 @@
+require 'timeout'
 require 'kapnismology/result'
 require 'kapnismology/smoke_test_collection'
 require 'kapnismology/smoke_test_failed'
