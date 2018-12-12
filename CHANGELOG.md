@@ -1,3 +1,7 @@
+# 2.4.0
+* Try to infer the git revision from metadata when running inside an AWS ECS container.
+* Require Ruby 2.3 and up.
+
 # 2.3.2
 * Require 'timeout' in SmokeTest class
 

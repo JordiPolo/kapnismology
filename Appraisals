@@ -21,3 +21,7 @@ end
 appraise "rails-51" do
   gem "rails", "~> 5.1.0"
 end
+
+appraise "rails-52" do
+  gem "rails", "~> 5.2.0"
+end
