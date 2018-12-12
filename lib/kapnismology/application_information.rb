@@ -34,7 +34,11 @@ module Kapnismology
     # https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-metadata.html
     def latest_ref_from_ecs_metadata
       return unless !ECS_CONTAINER_METADATA_FILE&.strip.empty? && File.readable?(ECS_CONTAINER_METADATA_FILE)
-      JSON.parse(File.read(ECS_CONTAINER_METADATA_FILE))["ImageName"].split(".").last[0...7]
+      begin
+        JSON.parse(File.read(ECS_CONTAINER_METADATA_FILE))["ImageName"].split(".").last[0...7]
+      rescue JSON::ParserError
+        nil
+      end
     end
   end
 end

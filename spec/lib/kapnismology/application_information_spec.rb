@@ -47,6 +47,11 @@ module Kapnismology
       it '#codebase_revision provides the info of the current commit' do
         expect(described_class.new.codebase_revision).to eq(git_sha)
       end
+
+      it 'rescues JSON::ParserError when reading the ECS metadata file' do
+        allow(File).to receive(:read).with(metadata_file_location).and_return('{not json')
+        expect(described_class.new.codebase_revision).to eq('')
+      end
     end
 
     context 'The app does not have git information' do
