@@ -57,7 +57,7 @@ module Kapnismology
     context 'The app does not have git information' do
       before do
         stub_const("#{described_class}::GIT_SHOW_COMMAND", "exit 128")
-        stub_const("#{described_class}::ECS_CONTAINER_METADATA_FILE", "")
+        stub_const("#{described_class}::ECS_CONTAINER_METADATA_FILE", nil)
       end
 
       it '#codebase_revision provides the info of the current commit' do
