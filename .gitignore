@@ -1,4 +1,5 @@
-.bundle/
+/.bundle/
+/coverage/
 
 /spec/internal/db/*.sqlite3
 /spec/internal/db/*.sqlite3-journal

@@ -1,0 +1,29 @@
+{
+  "Cluster": "my_cluster",
+  "ContainerInstanceARN": "arn:aws:ecs:us-east-1:111111111111:container-instance/9d0cc835-42fe-42d5-bd35-4155db533669",
+  "TaskARN": "arn:aws:ecs:us-east-1:222222222222:task/9b908ee5-d8d9-4cc6-9ded-393355f8286a",
+  "TaskDefinitionFamily": "some_task_def",
+  "TaskDefinitionRevision": "12",
+  "ContainerID": "3333333333333333333333333333333333333333333333333333333333333333",
+  "ContainerName": "web",
+  "DockerContainerName": "/ecs-my-container",
+  "ImageID": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+  "ImageName": "555555555555.dkr.ecr.us-east-1.amazonaws.com/wonderful-image.66666666666666666666666666666666.aa6eadd0dca5",
+  "PortMappings": [
+    {
+      "ContainerPort": 3000,
+      "HostPort": 33290,
+      "BindIp": "0.0.0.0",
+      "Protocol": "tcp"
+    }
+  ],
+  "Networks": [
+    {
+      "NetworkMode": "bridge",
+      "IPv4Addresses": [
+        "172.17.0.9"
+      ]
+    }
+  ],
+  "MetadataFileStatus": "READY"
+}

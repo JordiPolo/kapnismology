@@ -1,17 +1,16 @@
 language: ruby
 cache: bundler
-sudo: false
 
 rvm:
-  - 2.2.8
-  - 2.3.5
-  - 2.4.2
+  - 2.3.8
+  - 2.4.5
+  - 2.5.3
 
 matrix:
   exclude:
-    - rvm: 2.4.2
+    - rvm: 2.4.5
       gemfile: gemfiles/rails_40.gemfile
-    - rvm: 2.4.2
+    - rvm: 2.4.5
       gemfile: gemfiles/rails_41.gemfile
 
 gemfile:
@@ -21,6 +20,7 @@ gemfile:
   - gemfiles/rails_42.gemfile
   - gemfiles/rails_50.gemfile
   - gemfiles/rails_51.gemfile
+  - gemfiles/rails_52.gemfile
 
 script:
   - NO_RAILS=1 bundle exec rspec
