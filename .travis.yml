@@ -24,7 +24,6 @@ matrix:
       gemfile: gemfiles/rails_41.gemfile
 
 gemfile:
-  - gemfiles/rails_32.gemfile
   - gemfiles/rails_40.gemfile
   - gemfiles/rails_41.gemfile
   - gemfiles/rails_42.gemfile
