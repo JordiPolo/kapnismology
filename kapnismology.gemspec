@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'mutant-rspec', '~> 0.8'
   s.add_development_dependency 'appraisal', '~> 2.1'
   s.add_development_dependency 'combustion', '~> 1.0'
-  s.add_development_dependency 'sqlite3', '~> 1.3'
+  s.add_development_dependency 'sqlite3', '~> 1.3.6'
   s.add_development_dependency 'capybara', '~> 2.10'
   s.add_development_dependency 'timecop', '~> 0.7'
   s.add_development_dependency 'simplecov', '~> 0.16'

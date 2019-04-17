@@ -1,3 +1,6 @@
+# 2.4.1
+* Suppress the stderr message, "fatal: Not a git repository", when the git show command failed.
+
 # 2.4.0
 * Try to infer the git revision from metadata when running inside an AWS ECS container.
 * Require Ruby 2.3 and up.

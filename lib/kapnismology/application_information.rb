@@ -4,7 +4,7 @@ module Kapnismology
   # This class provides information about the running environment the smoketest is being
   # executed under.
   class ApplicationInformation
-    GIT_SHOW_COMMAND = "git show HEAD --abbrev-commit --oneline".freeze
+    GIT_SHOW_COMMAND = "git show HEAD --abbrev-commit --oneline 2>/dev/null".freeze
     ECS_CONTAINER_METADATA_FILE = ENV["ECS_CONTAINER_METADATA_FILE"].freeze
     INFO_UNKNOWN = "".freeze
 
