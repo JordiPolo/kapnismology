@@ -7,7 +7,7 @@ if defined?(Rails)
         initializer 'kapnismology.add_autoload_paths', before: :set_autoload_paths do |_app|
           smoketest_dir = Rails.root.join('lib', 'smoke_test')
           if smoketest_dir.exist?
-            Dir[File.join(smoketest_dir, '*.rb')].each { |file| require file }
+            Dir[File.join(smoketest_dir, '**', '*.rb')].each { |file| require file }
           end
         end
 
