@@ -1,3 +1,8 @@
+# 2.5.0
+* Support Ruby 3.2 and Rails 7.0.
+* Drop support for Ruby < 2.7 and Rails < 5.2.
+* Move CI to GitHub Actions.
+
 # 2.4.1
 * Suppress the stderr message, "fatal: Not a git repository", when the git show command failed.
 

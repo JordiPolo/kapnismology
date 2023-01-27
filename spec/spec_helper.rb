@@ -11,7 +11,7 @@ require 'byebug'
 require 'capybara/rspec'
 
 unless ENV['NO_RAILS']
-  Combustion.initialize! :all
+  Combustion.initialize! :action_controller
   require 'capybara/rails'
 end
 

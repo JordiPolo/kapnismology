@@ -12,7 +12,10 @@ module Kapnismology
       end
     end
     let(:evaluation) { Evaluation.new(TestSmokeTest) }
-    before { Timecop.freeze }
+    before do
+      Timecop.freeze
+      allow($stdout).to receive(:isatty).and_return(true)
+    end
 
     it 'creates a hash that can be converted to a JSON representation' do
       expected = {

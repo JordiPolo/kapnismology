@@ -8,6 +8,8 @@ RSpec.describe Kapnismology::Result do
   let(:result) { described_class.new(passed, data, message) }
   let(:extra_char) { '' }
 
+  before { allow($stdout).to receive(:isatty).and_return(true) }
+
   shared_examples_for 'serializes its data' do
     it 'creates a string with its data' do
       first = "\e[#{terminal_color}m\e[1m#{title}\e[0m: #{name}\nduration: \e[1m0\e[0m ms"
@@ -118,6 +120,8 @@ RSpec.describe Kapnismology::NullResult do
   let(:name) { 'Skynet' }
 
   let(:result) { described_class.new(data, message) }
+
+  before { allow($stdout).to receive(:isatty).and_return(true) }
 
   it "#{described_class} creates a result which has passed the test" do
     expect(result.passed?).to eq(true)

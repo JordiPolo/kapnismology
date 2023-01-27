@@ -1,23 +1,18 @@
-appraise "rails-40" do
-  gem "rails", "~> 4.0.0"
+# Rails 5.2 is incompatible with Ruby 3.
+if RUBY_VERSION < "3"
+  appraise "rails-5.2" do
+    gem "actionpack", "~> 5.2.0"
+  end
 end
 
-appraise "rails-41" do
-  gem "rails", "~> 4.1.0"
+appraise "rails-6.0" do
+  gem "actionpack", "~> 6.0.0"
 end
 
-appraise "rails-42" do
-  gem "rails", "~> 4.2.0"
+appraise "rails-6.1" do
+  gem "actionpack", "~> 6.1.0"
 end
 
-appraise "rails-50" do
-  gem "rails", "~> 5.0.0"
-end
-
-appraise "rails-51" do
-  gem "rails", "~> 5.1.0"
-end
-
-appraise "rails-52" do
-  gem "rails", "~> 5.2.0"
+appraise "rails-7.0" do
+  gem "actionpack", "~> 7.0.0"
 end
