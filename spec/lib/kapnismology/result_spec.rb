@@ -59,11 +59,11 @@ RSpec.describe Kapnismology::Result do
       end
 
       context 'added some extra messages' do
-        let(:debug_messages) { %w(42 41) }
+        let(:debug_messages) { %w[42 41] }
         let(:extra_char) { "\n" }
 
         before do
-          result.add_debug_messages(%w(42 41))
+          result.add_debug_messages(%w[42 41])
         end
         it_behaves_like 'serializes its data'
       end
@@ -80,19 +80,17 @@ RSpec.describe Kapnismology::Result do
       end
 
       context 'added some extra messages' do
-        let(:debug_messages) { %w(42 41) }
+        let(:debug_messages) { %w[42 41] }
         let(:extra_char) { "\n" }
 
         before do
-          result.add_debug_messages(%w(42 41))
+          result.add_debug_messages(%w[42 41])
         end
         it_behaves_like 'serializes its data'
       end
     end
-
   end
 end
-
 
 RSpec.describe Kapnismology::Success do
   let(:data) { { title: 'berserk' } }
@@ -112,7 +110,6 @@ RSpec.describe Kapnismology::Success do
       .to raise_error(ArgumentError, 'data argument must be a hash')
   end
 end
-
 
 RSpec.describe Kapnismology::NullResult do
   let(:data) { { version: 'newest' } }
@@ -139,5 +136,4 @@ RSpec.describe Kapnismology::NullResult do
     expected = "#{first}\n#{[].join("\n")}\e[1m#{message}\e[0m\n   #{data}\n"
     expect(result.to_s(name)).to eq(expected)
   end
-
 end

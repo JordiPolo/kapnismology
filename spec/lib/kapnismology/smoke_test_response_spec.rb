@@ -10,7 +10,7 @@ module Kapnismology
     let(:smoke_tests) { [FakeSmokeTest, FakeSmokeTest2] }
     let(:evaluations) { EvaluationCollection.new(smoke_tests) }
     let(:run) { SmokeTestResponse.new(evaluations) }
-    let(:request_url) { 'http://sandbox.imedidata.net/test'}
+    let(:request_url) { 'http://sandbox.imedidata.net/test' }
     let(:profile_url) { 'http://tbd.mdsol.com' }
     let(:name2) { 'gits' }
 

@@ -64,6 +64,5 @@ module Kapnismology
         expect(described_class.new.codebase_revision).to eq('')
       end
     end
-
   end
 end

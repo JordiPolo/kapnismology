@@ -17,7 +17,7 @@ end
 
 require 'kapnismology'
 require 'timecop'
-require File.expand_path('../support/fake_smoketest', __FILE__)
+require File.expand_path('support/fake_smoketest', __dir__)
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

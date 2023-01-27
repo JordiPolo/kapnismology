@@ -26,8 +26,10 @@ module Kapnismology
       end
 
       it 'returns a hash representation' do
-        first  = { name: 'guts', passed: true, data: { title: 'berserk' }, message: "黄金時代", debug_messages: [], duration: 0 }
-        second  = { name: 'gits', passed: true, data: { title: 'berserk' }, message: "黄金時代", debug_messages: [], duration: 0 }
+        first = { name: 'guts', passed: true, data: { title: 'berserk' }, message: "黄金時代", debug_messages: [],
+                  duration: 0 }
+        second = { name: 'gits', passed: true, data: { title: 'berserk' }, message: "黄金時代", debug_messages: [],
+                   duration: 0 }
         expected = [first, second]
         expect(evaluations.to_hash).to eq(expected)
       end
@@ -47,8 +49,10 @@ module Kapnismology
       end
 
       it 'returns a hash representation' do
-        first  = { name: 'guts', passed: false, data: { title: 'berserk' }, message: "黄金時代", debug_messages: [], duration: 0 }
-        second  = { name: 'gits', passed: true, data: { title: 'berserk' }, message: "黄金時代", debug_messages: [], duration: 0 }
+        first = { name: 'guts', passed: false, data: { title: 'berserk' }, message: "黄金時代", debug_messages: [],
+                  duration: 0 }
+        second = { name: 'gits', passed: true, data: { title: 'berserk' }, message: "黄金時代", debug_messages: [],
+                   duration: 0 }
         expected = [first, second]
         expect(evaluations.to_hash).to eq(expected)
       end
@@ -68,8 +72,9 @@ module Kapnismology
       end
 
       it 'returns a hash representation' do
-        first  = { name: 'guts', passed: true, data: { title: 'berserk' }, message: "黄金時代", debug_messages: [], duration: 0 }
-        second  = { name: 'gits' }
+        first = { name: 'guts', passed: true, data: { title: 'berserk' }, message: "黄金時代", debug_messages: [],
+                  duration: 0 }
+        second = { name: 'gits' }
         expected = [first, second]
         expect(evaluations.to_hash).to eq(expected)
       end

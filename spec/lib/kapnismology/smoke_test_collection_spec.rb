@@ -3,14 +3,16 @@ require 'spec_helper'
 RSpec.describe Kapnismology::SmokeTestCollection do
   class DBSmokeTest
     def self.tags
-      %w(deployment runtime)
+      %w[deployment runtime]
     end
   end
+
   class JobSmokeTest
     def self.tags
       ['runtime']
     end
   end
+
   class InexistentClass; end
 
   let(:smoketest_classes) { [DBSmokeTest, JobSmokeTest] }
@@ -20,7 +22,7 @@ RSpec.describe Kapnismology::SmokeTestCollection do
   end
 
   context 'All tags are allowed' do
-    let(:tags) { %w(deployment runtime) }
+    let(:tags) { %w[deployment runtime] }
     context 'blacklist does not contain any class in the smoke test list' do
       let(:blacklist) { [InexistentClass] }
       it 'creates a collection with all the classes' do
