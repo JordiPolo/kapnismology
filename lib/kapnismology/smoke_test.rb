@@ -13,13 +13,12 @@ module Kapnismology
     RUNTIME_TAG = 'runtime'.freeze
     DEFAULT_TAGS = [DEPLOYMENT_TAG, RUNTIME_TAG].freeze
 
-    def result
-    end
+    def result; end
 
     # Internally Kapnismology is calling this method. We are handling exceptions under the hood here
     def __result__
       start_time = Time.now
-      execution = Timeout::timeout(self.class.timeout) { result }
+      execution = Timeout.timeout(self.class.timeout) { result }
       result_object = execution || Result.new(false, {}, 'This test has not returned any result')
       unless result_object.class.ancestors.include?(BaseResult)
         message = "Smoke test #{self.class}, returned #{result_object.class} instead of a Result"
@@ -63,12 +62,14 @@ module Kapnismology
     # These classes makes it very simple to implementors of results to use them without the module name
     class Result < Kapnismology::Result
     end
+
     class NullResult < Kapnismology::NullResult
     end
+
     class Success < Kapnismology::Success
     end
+
     class SmokeTestFailed < Kapnismology::SmokeTestFailed
     end
-
   end
 end

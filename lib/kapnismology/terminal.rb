@@ -16,7 +16,6 @@ module Kapnismology
       colorize(msg, '')
     end
 
-    private
     def self.colorize(msg, color_code)
       # \e[1m adds bold font, \e[0m resets all styles
       $stdout.isatty ? "#{color_code}\e[1m#{msg}\e[0m" : msg

@@ -11,13 +11,13 @@ require 'byebug'
 require 'capybara/rspec'
 
 unless ENV['NO_RAILS']
-  Combustion.initialize! :all
+  Combustion.initialize! :action_controller
   require 'capybara/rails'
 end
 
 require 'kapnismology'
 require 'timecop'
-require File.expand_path('../support/fake_smoketest', __FILE__)
+require File.expand_path('support/fake_smoketest', __dir__)
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

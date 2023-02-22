@@ -21,6 +21,7 @@ if defined?(Rails)
           if defined?(Kapnismology) == false
             raise 'require kapnismology before trying to insert routes'
           end
+
           Rails.application.routes.draw do
             mount Kapnismology::Engine, at: path
           end

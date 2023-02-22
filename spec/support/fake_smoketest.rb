@@ -1,9 +1,7 @@
 module Kapnismology
   class FakeSmokeTest < SmokeTest
     class << self
-      attr_accessor :name
-      attr_accessor :result
-      attr_accessor :tags
+      attr_accessor :name, :result, :tags
     end
 
     def result
@@ -13,9 +11,7 @@ module Kapnismology
 
   class FakeSmokeTest2 < SmokeTest
     class << self
-      attr_accessor :name
-      attr_accessor :result
-      attr_accessor :tags
+      attr_accessor :name, :result, :tags
     end
 
     def result

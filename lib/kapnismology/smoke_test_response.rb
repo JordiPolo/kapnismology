@@ -1,7 +1,6 @@
 module Kapnismology
   # A summary of a run containing smoke test evaluations
   class SmokeTestResponse
-
     PROFILE_URL = 'http://tbd.mdsol.com'.freeze
 
     def initialize(evaluations)
@@ -27,6 +26,5 @@ module Kapnismology
         items: items
       }.to_json
     end
-
   end
 end

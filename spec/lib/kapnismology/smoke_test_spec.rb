@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe Kapnismology::SmokeTest do
   let(:smoke_test) { described_class.new }
 
-  def expect_failed(data, message, debug_messages=[])
+  def expect_failed(data, message, debug_messages = [])
     result = smoke_test.__result__
     expect(result.passed?).to eq(false)
     expect(result.data).to eq(data)
@@ -12,7 +12,7 @@ RSpec.describe Kapnismology::SmokeTest do
   end
 
   it 'has default tags' do
-    expect(described_class.tags).to eq(%w(deployment runtime))
+    expect(described_class.tags).to eq(%w[deployment runtime])
   end
 
   it 'has default timeout of 10' do
@@ -102,7 +102,8 @@ RSpec.describe Kapnismology::SmokeTest do
     end
     it 'reports a failed result with extra information' do
       message = 'Unrescued error happened in Kapnismology::SmokeTest'
-      expect_failed({ exception: Errno::EHOSTUNREACH, message: "No route to host" }, message, ["Some extra information"])
+      expect_failed({ exception: Errno::EHOSTUNREACH, message: "No route to host" }, message,
+        ["Some extra information"])
     end
   end
 end

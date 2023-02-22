@@ -12,7 +12,10 @@ module Kapnismology
       end
     end
     let(:evaluation) { Evaluation.new(TestSmokeTest) }
-    before { Timecop.freeze }
+    before do
+      Timecop.freeze
+      allow($stdout).to receive(:isatty).and_return(true)
+    end
 
     it 'creates a hash that can be converted to a JSON representation' do
       expected = {
@@ -31,7 +34,7 @@ module Kapnismology
     end
 
     it 'creates a string representation' do
-      expected = %|#{Terminal.green('passed')}: TestSmokeTest\nduration: \e[1m0\e[0m ms\n\e[1m黄金時代\e[0m\n   {:title=>"berserk"}\n|
+      expected = %(#{Terminal.green('passed')}: TestSmokeTest\nduration: \e[1m0\e[0m ms\n\e[1m黄金時代\e[0m\n   {:title=>"berserk"}\n)
       expect(evaluation.to_s).to eq(expected)
     end
   end

@@ -10,9 +10,7 @@ module Kapnismology
     end
 
     def each(&_block)
-      evaluations.each do |member|
-        yield(member)
-      end
+      evaluations.each(&_block)
     end
 
     def passed?
@@ -30,10 +28,9 @@ module Kapnismology
     private
 
     def evaluations
-      @evaluations ||= @smoke_tests_classes.inject([]) do |memo, klass|
+      @evaluations ||= @smoke_tests_classes.each_with_object([]) do |klass, memo|
         evaluation = Evaluation.new(klass)
-        memo << evaluation if !evaluation.result.class.ancestors.include?(Kapnismology::NotApplicableResult)
-        memo
+        memo << evaluation unless evaluation.result.class.ancestors.include?(Kapnismology::NotApplicableResult)
       end
     end
   end

@@ -10,14 +10,16 @@ module Kapnismology
     let(:trace_id) { '74bf7dd481bcc880' }
     let(:codebase_revision) { '781aab' }
     let(:count) { 1 }
-    let(:links) { {
+    let(:links) do
+      {
         self: "http://www.example.com/smoke_test#{parameters}",
         profile: "http://tbd.mdsol.com"
-    } }
-    let(:items) { [ { name: name }.merge(result.to_hash) ] }
+      }
+    end
+    let(:items) { [{ name: name }.merge(result.to_hash)] }
     before do
       Timecop.freeze
-      
+
       FakeSmokeTest.name = name
       FakeSmokeTest.result = result
       FakeSmokeTest.tags = ['runtime']
@@ -74,6 +76,5 @@ module Kapnismology
         it_behaves_like 'Access the smoke_test URL'
       end
     end
-
   end
 end

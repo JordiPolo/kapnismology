@@ -4,16 +4,17 @@ module Kapnismology
   # It also have methods to add information and serialize it.
   class BaseResult
     attr_reader :data, :message, :debug_messages, :duration
+
     def to_hash
       { passed: passed?, data: @data, message: @message, debug_messages: @debug_messages, duration: @duration }
     end
 
     def to_s(name)
-      <<-eos
-#{format_passed(passed?)}: #{name}
-#{format_duration(@duration)}#{format_debug_messages(@debug_messages)}#{Terminal.bold(@message)}
-   #{@data}
-eos
+      <<~EOS
+        #{format_passed(passed?)}: #{name}
+        #{format_duration(@duration)}#{format_debug_messages(@debug_messages)}#{Terminal.bold(@message)}
+           #{@data}
+      EOS
     end
 
     def add_debug_messages(messages)
@@ -58,6 +59,7 @@ eos
     def initialize(passed, data, message)
       raise ArgumentError, 'passed argument must be true or false' unless !!passed == passed
       raise ArgumentError, 'data argument must be a hash' unless data.is_a?(Hash)
+
       @passed = passed
       @data = data
       @message = message
@@ -77,10 +79,10 @@ eos
     end
 
     def to_s(name)
-      <<-eos
-#{Terminal.yellow('This test can not be run. Skipping...')}
-#{super(name).chomp}
-eos
+      <<~EOS
+        #{Terminal.yellow('This test can not be run. Skipping...')}
+        #{super(name).chomp}
+      EOS
     end
 
     # Nullresult does not output any data.
@@ -103,6 +105,7 @@ eos
   class Success < BaseResult
     def initialize(data, message)
       raise ArgumentError, 'data argument must be a hash' unless data.is_a?(Hash)
+
       @passed = true
       @data = data
       @message = message

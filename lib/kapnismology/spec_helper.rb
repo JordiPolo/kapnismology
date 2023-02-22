@@ -3,6 +3,7 @@ require 'kapnismology/result'
 module Kapnismology
   class RSpecResult < BaseResult
     attr_reader :data, :message, :debug_messages
+
     def initialize(result)
       hash = result.to_hash
       @data = hash[:data]
