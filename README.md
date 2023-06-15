@@ -38,7 +38,6 @@ Sample:
   },
   "passed": false,
   "count": 2,
-  "trace_id": "d93abb9f-e0a2-467b-902f-b78069167e8f",
   "codebase_revision": "7beb617",
   "items": [
     {
