@@ -1,10 +1,3 @@
-# Rails 5.2 is incompatible with Ruby 3.
-if RUBY_VERSION < "3"
-  appraise "rails-5.2" do
-    gem "actionpack", "~> 5.2.0"
-  end
-end
-
 appraise "rails-6.0" do
   gem "actionpack", "~> 6.0.0"
 end

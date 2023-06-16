@@ -1,47 +1,54 @@
 require "json"
+require "singleton"
 
 module Kapnismology
   # This class provides information about the running environment the smoketest is being
   # executed under.
   class ApplicationInformation
-    GIT_SHOW_COMMAND = "git show HEAD --abbrev-commit --oneline 2>/dev/null".freeze
+    include Singleton
+
+    GIT_COMMAND = "git rev-parse --short HEAD 2>/dev/null".freeze
     ECS_CONTAINER_METADATA_FILE = ENV["ECS_CONTAINER_METADATA_FILE"].freeze
+    KUBERNETES_ANNOTATIONS_FILE = "/etc/podinfo/annotations".freeze
     INFO_UNKNOWN = "".freeze
 
-    def trace_id
-      Object.const_defined?(:Trace) ? Trace.id.trace_id.to_s : INFO_UNKNOWN
-    end
-
     def codebase_revision
-      ref = latest_commit_info
-      ref ? ref.split(/\s/).first : INFO_UNKNOWN
-    rescue Errno::ENOENT, StandardError
-      INFO_UNKNOWN
+      @codebase_revision ||= begin
+        latest_commit_info[0...7]
+      rescue Errno::ENOENT, StandardError
+        INFO_UNKNOWN
+      end
     end
 
     private
 
     def latest_commit_info
-      latest_ref_from_git || latest_ref_from_ecs_metadata || nil
+      latest_sha_from_ecs_metadata || latest_sha_from_k8s_annotations || latest_sha_from_git || INFO_UNKNOWN
     end
 
-    def latest_ref_from_git
-      result = `#{GIT_SHOW_COMMAND}`
+    def latest_sha_from_git
+      result = `#{GIT_COMMAND}`
       $?.success? ? result : nil
     end
 
-    # This assumes the ImageName features the git ref as the last part of a string delimited by dots.
+    # This assumes the ImageName features the git sha as the last part of a string delimited by dots.
     # See spec/support/ecs_metadata.json as well as
     # https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-metadata.html
-    def latest_ref_from_ecs_metadata
-      return if ECS_CONTAINER_METADATA_FILE.nil?
-      return unless !ECS_CONTAINER_METADATA_FILE.strip.empty? && File.readable?(ECS_CONTAINER_METADATA_FILE)
+    def latest_sha_from_ecs_metadata
+      return nil if ECS_CONTAINER_METADATA_FILE.nil?
+      return nil unless !ECS_CONTAINER_METADATA_FILE.strip.empty? && File.readable?(ECS_CONTAINER_METADATA_FILE)
 
       begin
-        JSON.parse(File.read(ECS_CONTAINER_METADATA_FILE))["ImageName"].split(".").last[0...7]
+        JSON.parse(File.read(ECS_CONTAINER_METADATA_FILE))["ImageName"].split(".").last
       rescue JSON::ParserError
         nil
       end
+    end
+
+    def latest_sha_from_k8s_annotations
+      return nil unless File.readable?(KUBERNETES_ANNOTATIONS_FILE)
+
+      File.read(KUBERNETES_ANNOTATIONS_FILE).scan(/gitSha="(.+)"$/).last&.first
     end
   end
 end

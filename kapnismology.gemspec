@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir['{app,config,lib}/**/*', 'Rakefile', 'README.md']
 
-  s.add_development_dependency 'actionpack', '>= 5.2'
+  s.add_development_dependency 'actionpack', '>= 6.0'
   s.add_development_dependency 'appraisal', '~> 2.1'
   s.add_development_dependency 'byebug', '~> 10'
   s.add_development_dependency 'capybara', '~> 3.5'

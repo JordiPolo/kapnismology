@@ -7,7 +7,6 @@ module Kapnismology
     let(:message) { '黄金時代' }
     let(:result) { Result.new(passed, data, message) }
     let(:name) { 'guts' }
-    let(:trace_id) { '74bf7dd481bcc880' }
     let(:codebase_revision) { '781aab' }
     let(:count) { 1 }
     let(:links) do
@@ -36,7 +35,6 @@ module Kapnismology
           _links: links,
           passed: passed,
           count: count,
-          trace_id: trace_id,
           codebase_revision: codebase_revision,
           duration: 0,
           items: items
@@ -47,7 +45,6 @@ module Kapnismology
 
     context 'with all the information', :requires_rails do
       before do
-        allow_any_instance_of(ApplicationInformation).to receive(:trace_id).and_return(trace_id)
         allow_any_instance_of(ApplicationInformation).to receive(:codebase_revision).and_return(codebase_revision)
       end
 

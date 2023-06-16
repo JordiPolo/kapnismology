@@ -20,8 +20,7 @@ module Kapnismology
         },
         passed: @evaluations.passed?,
         count: items.size,
-        trace_id: ApplicationInformation.new.trace_id,
-        codebase_revision: ApplicationInformation.new.codebase_revision,
+        codebase_revision: ApplicationInformation.instance.codebase_revision,
         duration: @evaluations.total_duration,
         items: items
       }.to_json

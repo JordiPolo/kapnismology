@@ -1,3 +1,8 @@
+# 2.6.0
+* Try to infer the git sha from annotations when running inside an AWS EKS container.
+* Remove `trace_id` from SmokeTestResponse.
+* Drop support for Rails < 6.0.
+
 # 2.5.0
 * Support Ruby 3.2 and Rails 7.0.
 * Drop support for Ruby < 2.7 and Rails < 5.2.
