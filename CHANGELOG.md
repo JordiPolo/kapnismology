@@ -1,3 +1,6 @@
+# 2.6.1
+* Fix rake task to retrieve codebase revision properly.
+
 # 2.6.0
 * Try to infer the git sha from annotations when running inside an AWS EKS container.
 * Remove `trace_id` from SmokeTestResponse.
